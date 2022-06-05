@@ -40,7 +40,7 @@
                         <c:forEach var="want" items="${wants}" varStatus="status">
                             <tr class="row${status.count % 2}">
                                 <td><c:out value="${want.meeting.name}" /></td>
-                                <td><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />" ><c:out value="${want.title}" /></a></td>
+                                <td class="overflow"><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />" ><c:out value="${want.title}" /></a></td>
                                 <td><c:out value="${want.due_date}" /></td>
                                 <td><a href="<c:url value='?action=${actWan}&command=${commEdit}&want_id=${want.id}' />" >編集</a></td>
                             </tr>

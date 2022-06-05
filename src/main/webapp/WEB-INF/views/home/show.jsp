@@ -49,8 +49,8 @@
                     <c:forEach var="want" items="${wants}" varStatus="status">
                         <tr class="row${status.count % 2}">
                             <td><c:out value="${want.due_date}" /></td>
-                            <td><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${want.title}" /></a></td>
-                            <td><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${want.content}" /></a></td>                        </tr>
+                            <td class="overflow"><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${want.title}" /></a></td>
+                            <td class="overflow"><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${want.content}" /></a></td>                        </tr>
                     </c:forEach>
                 </tbody>
             </table>
