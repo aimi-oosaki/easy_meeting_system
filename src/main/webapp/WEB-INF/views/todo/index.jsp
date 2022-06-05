@@ -29,7 +29,7 @@
                         <tr class="row${status.count % 2}">
                             <td><c:out value="${todo.employee.name}" /></td>
                             <td><c:out value="${todo.deadline}" /></td>
-                            <td><a href="<c:url value='?action=${actTod}&command=${commShow}&todo_id=${todo.id}' />"><c:out value="${todo.what}" /></a></td>
+                            <td class="overflow"><a href="<c:url value='?action=${actTod}&command=${commShow}&todo_id=${todo.id}' />"><c:out value="${todo.what}" /></a></td>
                             <td><a href="<c:url value='?action=${actTod}&command=${commEdit}&todo_id=${todo.id}&meeting_id=${todo.meeting.id}' />" >編集</a></td>
                         </tr>
                     </c:if>

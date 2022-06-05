@@ -123,12 +123,11 @@ th {
 td {
     width: 66%;
     padding: 10px 2%;
-/*     border-bottom: 1px solid #b2b2b2; */
-/*     border-right: none; */
-/*     border-left: none; */
     text-align: center;
     background-color: #ffffff;
-/*     min-width:  20em; */
+}
+
+.overflow {
     white-space:nowrap; /* 改行の禁止 */
     overflow:hidden; /*はみ出した部分を隠す */
     text-overflow:ellipsis;/* テキストのはみ出しを「…」で省略 */
