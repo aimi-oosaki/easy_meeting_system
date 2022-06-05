@@ -32,7 +32,8 @@
                 <select id="todo_who" name="${AttributeConst.TODO_EMP.getValue()}">
                     <option>担当者を選んでください</option>
                     <c:forEach var="employee" items="${employees}">
-                        <option value="${employee.id}" selected>${employee.name}</option>
+                        <option value="${employee.id}" <c:if test="${employee.id == todo.employee.id}">selected</c:if>>${employee.name}</option>
+
                     </c:forEach>
                 </select>
             </td>
