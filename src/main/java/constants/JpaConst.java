@@ -194,7 +194,7 @@ public interface JpaConst {
 
     //【会議】自分のチームの会議をidの降順に取得する
     String Q_MEE_GET_ALL = ENTITY_MEE + ".getAll";
-    String Q_MEE_GET_ALL_DEF = "SELECT m FROM Meeting AS m ORDER BY m.id DESC";
+    String Q_MEE_GET_ALL_DEF = "SELECT m FROM Meeting AS m ORDER BY m.date DESC";
 
 
     //【チーム】自分の会社のすべてのチームを取得する
