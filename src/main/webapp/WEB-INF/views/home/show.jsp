@@ -20,37 +20,37 @@
         <div id="home_menus_wrapper">
             <div class="top_menus">
                 <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commNew}' />"><img class="home_img" src="/meeting_system/img/newMeeting.png"></a>
+                    <a href="<c:url value='?action=Meeting&command=${commNew}' />"><img class="home_img" src="/easy_meeting_system/img/newMeeting.png"></a>
                     <a href="<c:url value='?action=Meeting&command=${commNew}' />" class="link-secondary text-decoration-none">新しい会議を作成</a>
                 </div>
                 <div class="top-menu">
-                   <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/meeting_system/img/meetingIndex.png"></a>
+                   <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/meetingIndex.png"></a>
                     <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="link-secondary text-decoration-none">会議一覧</a>
                 </div>
                 <div class="top-menu">
-                    <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/meeting_system/img/todo.png"></a>
+                    <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/todo.png"></a>
                     <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="link-secondary text-decoration-none">TO DOリスト</a>
                 </div>
             </div>
         </div>
 
         <%-- アイデア募集中テーブル --%>
-        <div class="home_Project_wrapper">
+        <div class="home_want_wrapper">
             <h2 id="idea_list_home">＼ アイデア募集中 ／</h2>
             <input class="input_btn" type="button" onclick="location.href='<c:url value='?action=${actWan}&command=${commNew}' />'" value="募集投稿">
             <br/><br/>
-            <table id="Project_list" class="table">
+            <table id="want_list" class="table">
                 <tbody>
                     <tr>
                         <th class="text-center" scope="row">締切</th>
                         <th class="text-center">タイトル</th>
                         <th class="text-center">内容</th>
                     </tr>
-                    <c:forEach var="Project" items="${Projects}" varStatus="status">
+                    <c:forEach var="want" items="${wants}" varStatus="status">
                         <tr class="row${status.count % 2}">
-                            <td><c:out value="${Project.due_date}" /></td>
+                            <td><c:out value="${want.due_date}" /></td>
                             <td><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${want.title}" /></a></td>
-                            <td><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${Project.content}" /></a></td>                        </tr>
+                            <td><a href="<c:url value='?action=${actWan}&command=${commShow}&want_id=${want.id}' />"><c:out value="${want.content}" /></a></td>                        </tr>
                     </c:forEach>
                 </tbody>
             </table>

@@ -50,7 +50,7 @@
 <textarea name="${AttributeConst.MIN_PENDING.getValue()}" rows="10" cols="50">${minute.pending}</textarea>
 <br /><br />
 
-<input type="hidden" name="${AttributeConst.MET_ID.getValue()}" value="${meeting.id}" />
+<input type="hidden" name="${AttributeConst.MET_ID.getValue()}" value="${meeting_id}" />
 <input type="hidden" name="${AttributeConst.MIN_ID.getValue()}" value="${minute.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 <button type="submit">投稿</button>

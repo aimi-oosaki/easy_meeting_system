@@ -24,7 +24,7 @@
     <div id="topPage_container">
         <div class="header_conteiner clearfix">
             <div class="header_left">
-               <img class="logo" src="/meeting_system/img/logo.png">
+               <img class="logo" src="/easy_meeting_system/img/logo.png">
             </div>
             <div class="header_right">
                 <input class="input_btn" type="button" onclick="location.href='<c:url value='?action=${actAut}&command=${commLogin}' />'" value="ログイン">
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div id="exp_container-right">
-                <img src="/meeting_system/img/easy.png">
+                <img src="/easy_meeting_system/img/easy.png">
             </div>
         </div>
     </div>

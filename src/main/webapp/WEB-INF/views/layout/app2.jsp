@@ -52,7 +52,7 @@
                 <div id="header_conteiner">
                     <div class="header_left">
                         <a href="<c:url value='?action=${actHom}&command=${commShow}' />">
-                           <img class="logo" src="/meeting_system/img/logo.png">
+                           <img class="logo" src="/easy_meeting_system/img/logo.png">
                         </a>
                     </div>
 

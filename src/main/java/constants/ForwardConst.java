@@ -63,10 +63,10 @@ public enum ForwardConst {
     FW_MET_PROB3("meeting/prob_3"),
     FW_STICKY_NOTE("meeting/stickyNote"),
 
-    FW_WAN_INDEX("Project/index"),
-    FW_WAN_NEW("Project/new"),
-    FW_WAN_EDIT("Project/edit"),
-    FW_WAN_SHOW("Project/show"),
+    FW_WAN_INDEX("want/index"),
+    FW_WAN_NEW("want/new"),
+    FW_WAN_EDIT("want/edit"),
+    FW_WAN_SHOW("want/show"),
 
     FW_IDE_NEW("idea/new"),
     FW_IDE_INDEX("idea/index"),

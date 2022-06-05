@@ -21,7 +21,7 @@
             <c:when test="${empty minute}">
             <!-- 議事録がない時 -->
                 <div class="nothing">
-                    <img class="home_img" src="/meeting_system/img/nothing.png">
+                    <img class="home_img" src="/easy_meeting_system/img/nothing.png">
                     <h2>まだ作成されていません</h2>
                     <br />
                     <div class="center-btn">

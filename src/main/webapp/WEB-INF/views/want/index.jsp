@@ -20,7 +20,7 @@
         <c:choose>
             <c:when test="${empty wants}">
                 <div class="nothing">
-                    <img class="home_img" src="/meeting_system/img/nothing.png">
+                    <img class="home_img" src="/easy_meeting_system/img/nothing.png">
                     <h2>まだ作成されていません</h2>
                     <br />
                     <input class="submit-btn nothing-btn" type="button" onclick="location.href='<c:url value='?action=${actWan}&command=${commNew}' />'" value="作成">
