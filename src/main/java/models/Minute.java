@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -60,18 +61,21 @@ public class Minute {
     /**
      * 参加者
      */
+    @Lob
     @Column(name = JpaConst.MIN_COL_ATTENDEES, length = 50, nullable = false)
     private String attendees;
 
     /**
      * 決定事項
      */
+    @Lob
     @Column(name = JpaConst.MIN_COL_DECIDED, length = 250, nullable = false)
     private String decided;
 
     /**
      * 保留事項
      */
+    @Lob
     @Column(name = JpaConst.MIN_COL_PENDING, nullable = false)
     private String pending;
 }
