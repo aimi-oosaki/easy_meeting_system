@@ -122,6 +122,26 @@ public enum AttributeConst {
     WAN_CONTENT("want_content"),
     WAN_DUEDATE("want_duedate"),
 
+    //プロジェクト
+    TASK("task"),
+    TASKS("tasks"),
+    TAS_ID("task_id"),
+    TAS_TITLE("want_title"),
+    TAS_PROGRESS("task_progress"),
+    TAS_PROBLEM("task_problem"),
+    TAS_SOLUTION("task_solution"),
+    TAS_DUEDATE("task_duedate"),
+    TAS_STATUS("task_status"),
+
+    //完了フラグ
+    TAS_PROGRESS_SAFE(1),  //安全
+    TAS_PROGRESS_CAUTIOUS(2),  //安全
+    TAS_PROGRESS_DANGER(3),  //安全
+
+    //完了フラグ
+    TAS_STATUS_TRUE(1),  //完了
+    TAS_STATUS_FALSE(0), //未完了
+
     //アイデア
     IDEA("idea"),
     IDEAS("ideas"),

@@ -118,6 +118,7 @@ th {
 /*     border-left: none; */
     text-align: center;
     background-color: #ffffff;
+    font-weight: bold;
 }
 
 td {
@@ -799,3 +800,37 @@ ol.agenda-list li:before{
 .explain {
     margin-top: 40px;
 }
+
+/* タスク */
+.task-edit {
+    width: 50%;
+}
+
+.task_form{
+    width: 100%;
+}
+
+.task_form input {
+    width: 100%;
+}
+
+.task_form select {
+    width: 100%;
+}
+
+.task_form textarea {
+    width: 100%;
+}
+
+#status-danger{
+    background-color: #F39B77;
+}
+
+#status-safe {
+    background-color: #87C999;
+}
+
+#status-cautious {
+    background-color: #FEF898;
+}
+

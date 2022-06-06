@@ -21,6 +21,7 @@ public enum ForwardConst {
     ACT_WAN("Want"),
     ACT_IDE("Idea"),
     ACT_AUTH("Auth"),
+    ACT_TAS("Task"),
 
     //command
     CMD("command"),
@@ -90,6 +91,11 @@ public enum ForwardConst {
     FW_TOD_SHOW("todo/show"),
     FW_TOD_INDEX("todo/index"),
     FW_TOD_EDIT("todo/edit"),
+
+    FW_TAS_NEW("task/new"),
+    FW_TAS_SHOW("task/show"),
+    FW_TAS_INDEX("task/index"),
+    FW_TAS_EDIT("task/edit"),
 
     FW_COM_NEW("company/new"),
     FW_COM_SHOW("company/show"),

@@ -33,6 +33,8 @@ public enum MessageConst {
     E_NOWHAT("やることを入力してください。"),
     E_NODEADLINE("期限を入力してください。"),
     E_NOTEAM("チームを入力してください。"),
+    E_NOTASK("プロジェクト名を入力してください。"),
+    E_NOREP("担当者名を入力してください。"),
     E_NODUEDATE("募集期限を入力してください。");
 
 

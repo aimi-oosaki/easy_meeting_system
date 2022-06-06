@@ -117,21 +117,21 @@ public interface JpaConst {
     String IDE_COL_EMP = "employee_id"; //アイデアを書いた従業員
     String IDE_COL_CONTENT = "content"; //内容
 
-//    //タスクテーブル
-//    String TABLE_TAS = "tasks"; //テーブル名
-//    //タスクテーブルカラム
-//    String TAS_COL_ID = "want_id"; //id
-//    String TAS_COL_EMP = "employee_id"; //担当者
-//    String TAS_COL_TEA = "team_id"; //チーム
-//    String TAS_COL_TITLE = "title"; //プロジェクト名
-//    String TAS_COL_PROGRESS = "progress"; //進捗状況
-//    String TAS_COL_PROBLEM = "problem"; //問題点
-//    String TAS_COL_SOLUTION = "solution"; //解決策
-//    String TAS_COL_DUE_DATE = "due_date"; //期日
-//    String TAS_COL_STATUS = "status"; //TODO未・済
+    //タスクテーブル
+    String TABLE_TAS = "tasks"; //テーブル名
+    //タスクテーブルカラム
+    String TAS_COL_ID = "want_id"; //id
+    String TAS_COL_EMP = "employee_id"; //担当者
+    String TAS_COL_TEA = "team_id"; //チーム
+    String TAS_COL_TITLE = "title"; //プロジェクト名
+    String TAS_COL_PROGRESS = "progress"; //進捗状況
+    String TAS_COL_PROBLEM = "problem"; //問題点
+    String TAS_COL_SOLUTION = "solution"; //解決策
+    String TAS_COL_DUE_DATE = "due_date"; //期日
+    String TAS_COL_STATUS = "status"; //TODO未・済
 
-//    int TAS_STA_TRUE = 1; //TODO済
-//    int TAS_STA_FALSE = 0; //TODO未
+    int TAS_STA_TRUE = 1; //TODO済
+    int TAS_STA_FALSE = 0; //TODO未
 
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
@@ -144,7 +144,7 @@ public interface JpaConst {
     String ENTITY_TOD = "todo"; //TO DO
     String ENTITY_WAN = "want"; //募集
     String ENTITY_IDE = "idea"; //アイデア
-//    String ENTITY_TAS = "task"; //アイデア
+    String ENTITY_TAS = "task"; //アイデア
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
@@ -229,12 +229,12 @@ public interface JpaConst {
   String Q_MINUTE_GET_BY_MEETING = ENTITY_MIN + ".getByMeeting"; //name
   String Q_MINUTE_GET_BY_MEETING_DEF = "SELECT m FROM Minute AS m WHERE m.meeting = :" + JPQL_PARM_MEETING;
 
-//  //【プロジェクト】該当のチーム・未完了のプロジェクトを取得する
-//  String Q_TASK_GET_BY_TEAM_AND_STATUS = ENTITY_TAS + ".getByTeamAndStatus"; //name
-//  String Q_TASK_GET_BY_TEAM_AND_STATUS_DEF = "SELECT t FROM Project AS t WHERE t.team = :" + JPQL_PARM_TEAM + " AND t.status = :" + JPQL_PARM_STATUS;
-//
-//  //【プロジェクト】自分のプロジェクトを取得する
-//  String Q_TASK_GET_BY_EMPLOYEE_AND_STATUS = ENTITY_TAS + ".getByEmployeeAndStatus"; //name
-//  String Q_TASK_GET_BY_EMPLOYEE_AND_STATUS_DEF = "SELECT t FROM Project AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE + " AND t.status = :" + JPQL_PARM_STATUS;
+  //【プロジェクト】該当のチーム・未完了のプロジェクトを取得する
+  String Q_TASK_GET_BY_TEAM_AND_STATUS = ENTITY_TAS + ".getByTeamAndStatus"; //name
+  String Q_TASK_GET_BY_TEAM_AND_STATUS_DEF = "SELECT t FROM Task AS t WHERE t.team = :" + JPQL_PARM_TEAM + " AND t.status = :" + JPQL_PARM_STATUS;
+
+  //【プロジェクト】自分のプロジェクトを取得する
+  String Q_TASK_GET_BY_EMPLOYEE_AND_STATUS = ENTITY_TAS + ".getByEmployeeAndStatus"; //name
+  String Q_TASK_GET_BY_EMPLOYEE_AND_STATUS_DEF = "SELECT t FROM Task AS t WHERE t.employee = :" + JPQL_PARM_EMPLOYEE + " AND t.status = :" + JPQL_PARM_STATUS;
 
 }
