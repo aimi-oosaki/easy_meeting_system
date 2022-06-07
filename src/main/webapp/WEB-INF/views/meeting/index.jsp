@@ -14,7 +14,7 @@
 <c:set var="commIndex" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commIndexMee" value="${ForwardConst.CMD_INDEX_MEE.getValue()}" />
 <c:set var="commProb1" value="${ForwardConst.CMD_PROB1.getValue()}" />
-
+<c:set var="commSel" value="${ForwardConst.CMD_SELECT.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -37,7 +37,7 @@
                                 <td><c:out value="${meeting.name}" /></td>
                                 <td><a href="<c:url value='?action=${actAge}&command=${commIndex}&meeting_id=${meeting.id}' />" >議題へ</a></td>
                                 <td><a href="<c:url value='?action=${actWan}&command=${commIndexMee}&meeting_id=${meeting.id}' />" >募集へ</a></td>
-                                <td><a href="<c:url value='?action=${actMee}&command=${commProb1}&meeting_id=${meeting.id}' />" >開催する</a></td>
+                                <td><a href="<c:url value='?action=${actMee}&command=${commSel}&meeting_id=${meeting.id}' />" >開催する</a></td>
                                 <td><a href="<c:url value='?action=${actMin}&command=${commShow}&meeting_id=${meeting.id}' />" >議事録へ</a></td>
                                 <td><a href="<c:url value='?action=${actMee}&command=${commEdit}&meeting_id=${meeting.id}' />" >編集する</a></td>
                             </tr>

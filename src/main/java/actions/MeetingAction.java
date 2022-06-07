@@ -312,11 +312,35 @@ public class MeetingAction extends ActionBase{
     }
 
     /**
+     * 進捗会議画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void select() throws ServletException, IOException{
+        //idを条件に会議データを取得する
+        MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
+
+        if (mv == null) {
+
+            //データが取得できなかった場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+        }
+
+        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+
+        //詳細画面を表示
+        forward(ForwardConst.FW_MET_SELECT);
+
+    }
+
+    /**
      * 付箋画面を表示する
      * @throws ServletException
      * @throws IOException
      */
-    public void stickyNote() throws ServletException, IOException{
+    public void stickynote() throws ServletException, IOException{
         //idを条件に会議データを取得する
 //        MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
 //

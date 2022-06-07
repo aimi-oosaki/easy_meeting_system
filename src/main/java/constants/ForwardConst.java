@@ -42,6 +42,8 @@ public enum ForwardConst {
     CMD_PROB2("prob_2"),
     CMD_PROB3("prob_3"),
     CMD_SIGNUP("signup"),
+    CMD_STICKYNOTE("stickynote"),
+    CMD_SELECT("select"),
 
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
@@ -62,7 +64,8 @@ public enum ForwardConst {
     FW_MET_PROB1("meeting/prob_1"),
     FW_MET_PROB2("meeting/prob_2"),
     FW_MET_PROB3("meeting/prob_3"),
-    FW_STICKY_NOTE("meeting/stickyNote"),
+    FW_STICKY_NOTE("meeting/stickynote"),
+    FW_MET_SELECT("meeting/select"),
 
     FW_WAN_INDEX("want/index"),
     FW_WAN_NEW("want/new"),
