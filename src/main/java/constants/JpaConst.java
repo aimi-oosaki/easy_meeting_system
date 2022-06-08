@@ -231,7 +231,7 @@ public interface JpaConst {
 
   //【プロジェクト】該当のチーム・未完了のプロジェクトを取得する
   String Q_TASK_GET_BY_TEAM_AND_STATUS = ENTITY_TAS + ".getByTeamAndStatus"; //name
-  String Q_TASK_GET_BY_TEAM_AND_STATUS_DEF = "SELECT t FROM Task AS t WHERE t.team = :" + JPQL_PARM_TEAM + " AND t.status = :" + JPQL_PARM_STATUS;
+  String Q_TASK_GET_BY_TEAM_AND_STATUS_DEF = "SELECT t FROM Task AS t WHERE t.team = :" + JPQL_PARM_TEAM + " AND t.status = :" + JPQL_PARM_STATUS + " ORDER BY t.progress DESC";
 
   //【プロジェクト】自分のプロジェクトを取得する
   String Q_TASK_GET_BY_EMPLOYEE_AND_STATUS = ENTITY_TAS + ".getByEmployeeAndStatus"; //name
