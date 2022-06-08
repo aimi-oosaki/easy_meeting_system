@@ -21,7 +21,7 @@
                 <a href="<c:url value='?action=${actEmp}&command=${commEdit}&id=${employee.id}' />">編集</a>
             </div>
         </div>
-        <table>
+        <table class="table">
             <tbody>
                 <tr>
                     <th>社員番号</th>
