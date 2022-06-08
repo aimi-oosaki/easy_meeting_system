@@ -23,7 +23,7 @@
                     <tbody>
                         <tr>
                             <th>会議日</th>
-                            <td align="left"><div class="text-left"><c:out value="${todo.meeting.date}" /></div></td>
+                            <td><div class="text-left"><c:out value="${todo.meeting.date}" /></div></td>
                         </tr>
                         <tr>
                             <th>会議名</th>
@@ -45,7 +45,7 @@
                             <th>完了</th>
                                 <c:choose>
                                 <c:when test="${todo.status == AttributeConst.TODO_STATUS_FALSE.getIntegerValue()}">
-                                   <td class="text-left"><p>未</p></td>
+                                   <td><p>未</p></td>
                                 </c:when>
                                 <c:otherwise>
                                     <td class="text-left"><p>完了</p></td>

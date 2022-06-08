@@ -15,53 +15,27 @@
     <c:param name="content">
         <div id="content-wrapper">
         <h2>TO DOリスト</h2>
-        <table class="table" id="targetTable">
+        <table class="table">
             <tbody>
                 <tr>
-                    <th class="text-center">完了</th>
                     <th class="text-center">だれが</th>
                     <th class="text-center">いつまでに</th>
                     <th class="text-center">なにを</th>
-                    <th class="text-center">どうなった</th>
                     <th class="text-center"></th>
                 </tr>
                 <c:forEach var="todo" items="${todos}" varStatus="status">
+                    <c:if test="${todo.status == AttributeConst.TODO_STATUS_FALSE.getIntegerValue()}">
                         <!-- 未完了のTO DOなら表示 -->
                         <tr class="row${status.count % 2}">
-                            <c:if test="${todo.status == AttributeConst.TODO_STATUS_FALSE.getIntegerValue()}">
-                                <td></td>
-                            </c:if>
-                            <c:if test="${todo.status == AttributeConst.TODO_STATUS_TRUE.getIntegerValue()}">
-                                <td><i class="fa-regular fa-circle-check"></i></td>
-                            </c:if>
                             <td><c:out value="${todo.employee.name}" /></td>
                             <td><c:out value="${todo.deadline}" /></td>
                             <td class="overflow"><a href="<c:url value='?action=${actTod}&command=${commShow}&todo_id=${todo.id}' />"><c:out value="${todo.what}" /></a></td>
-                            <td><c:out value="${todo.consequence}" /></td>
                             <td><a href="<c:url value='?action=${actTod}&command=${commEdit}&todo_id=${todo.id}&meeting_id=${todo.meeting.id}' />" >編集</a></td>
                         </tr>
-
+                    </c:if>
                 </c:forEach>
             </tbody>
         </table>
-<!--         <div id="text-button"><p id="text">クリック</p></div> -->
         </div>
     </c:param>
 </c:import>
-
-<!-- Tableの内容を変更するJS -->
-<script>
-document.getElementById("text-button").onclick = function() {
-    let table = document.getElementById('targetTable');
-    var todos = new Array();
-
-    for (i=1; i<3; i++){
-        <c:forEach var="todo" items="${todos}" varStatus="status">
-            table.rows[i].cells[0].innerText = '${todo.employee.name}';
-            table.rows[i].cells[1].innerText = '${todo.deadline}';
-            table.rows[i].cells[2].innerText = '${todo.what}';
-            table.rows[i].cells[3].innerText = '${todo.consequence}';
-        </c:forEach>
-    }
-};
-</script>

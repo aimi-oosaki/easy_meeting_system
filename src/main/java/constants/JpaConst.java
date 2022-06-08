@@ -215,7 +215,7 @@ public interface JpaConst {
 
   //【TODO】自分のチームのTODOを取得する
   String Q_TODO_GET_TEAM = ENTITY_TOD + ".getTeam"; //name
-  String Q_TODO_GET_TEAM_DEF = "SELECT t FROM Todo AS t WHERE t.team = :" + JPQL_PARM_TEAM;
+  String Q_TODO_GET_TEAM_DEF = "SELECT t FROM Todo AS t WHERE t.team = :" + JPQL_PARM_TEAM + " ORDER BY t.deadline ASC";
 
  //【TODO】自分のTODOを取得する
   String Q_TODO_GET_MINE = ENTITY_TOD + ".getMine"; //name
