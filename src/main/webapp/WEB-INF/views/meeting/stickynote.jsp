@@ -3,14 +3,17 @@
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
+        <!-- タイマー -->
+        <c:import url="_timer.jsp" />
+        <br />
         <!-- 付箋 -->
-        <div class="spacer"></div>
+<!--         <div class="spacer"></div> -->
         <button class="add-button" onmousedown="addNote()">+</button>
     </c:param>
 </c:import>
 
-        <!-- JavaScript -->
-        <script>
+     <!-- JavaScript -->
+     <script>
         document.onmousemove = snapNote; //Snap selected note to the mouse whenever the mouse moves
         document.ontouchmove = snapNoteTouch; //Logic for snapping to touch is slightly different than mouse
         document.onmouseup = placeNote; //When the mouse comes up, place the selected note where the user chose
