@@ -10,11 +10,13 @@
 <c:set var="actAuth" value="${ForwardConst.ACT_AUTH.getValue()}" />
 <c:set var="actTodo" value="${ForwardConst.ACT_TOD.getValue()}" />
 <c:set var="actTeam" value="${ForwardConst.ACT_TEA.getValue()}" />
+<c:set var="actTask" value="${ForwardConst.ACT_TAS.getValue()}" />
 
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commOut" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -66,10 +68,19 @@
                                      会議
                                   </a>
                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <a class="dropdown-item" href="<c:url value='?action=${actMee}&command=${commNew}' />">会議作成</a>
+                                      <a class="dropdown-item" href="<c:url value='?action=${actMee}&command=${commNew}' />">会議を作成する</a>
                                       <a class="dropdown-item" href="<c:url value='?action=${actMee}&command=${commIdx}' />">会議一覧</a>
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item" href="<c:url value='?action=${actMee}&command=${commIdx}' />">アイデアを募集する</a>
+                                 </div>
+                               </li>
+                               <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     プロジェクト
+                                  </a>
+                                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="<c:url value='?action=${actTask}&command=${commNew}' />">プロジェクトを作成する</a>
+                                      <a class="dropdown-item" href="<c:url value='?action=${actTask}&command=${commIdx}' />">プロジェクト一覧</a>
                                  </div>
                                </li>
                                <li class="nav-item">
@@ -83,7 +94,7 @@
                                       設定
                                   </a>
                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <a class="dropdown-item" href="<c:url value='?action=${actMee}&command=${commIdx}' />">プロフィール</a>
+                                      <a class="dropdown-item" href="<c:url value='?action=${actEmp}&command=${commShow}&id=${sessionScope.login_employee.id}' />">プロフィール</a>
                                       <div class="dropdown-divider"></div>
                                       <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
                                           <a class="dropdown-item" href="<c:url value='?action=${actTeam}&command=${commIdx}' />">チーム管理</a>
