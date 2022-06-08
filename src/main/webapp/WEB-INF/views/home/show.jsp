@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-
+        <br /><br /><br />
         <%-- アイデア募集中テーブル --%>
         <div class="home_want_wrapper">
             <h2 id="idea_list_home">＼ アイデア募集中 ／</h2>
