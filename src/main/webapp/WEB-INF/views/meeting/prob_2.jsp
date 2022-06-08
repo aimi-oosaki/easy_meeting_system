@@ -19,6 +19,7 @@
         <div class="question-contaniner">
           <p>どうなればいい？</p>
         </div>
+        <br />
         <input class= "mee-btn-left" type="button" onclick="location.href='<c:url value='?action=${actMee}&command=${commProb1}&meeting_id=${meeting.id}' />'" value="戻る">
         <input class= "mee-btn-right" type="button" onclick="location.href='<c:url value='?action=${actMee}&command=${commProb3}&meeting_id=${meeting.id}' />'" value="次へ">
     </div>
