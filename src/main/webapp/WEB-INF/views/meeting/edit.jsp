@@ -10,31 +10,33 @@
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
         <div id="content-wrapper">
-        <h2><i class="fa-solid fa-pen-to-square"></i> 編集</h2>
-        <form method="POST" action="<c:url value='?action=${actMee}&command=${commUpd}' />">
-            <c:import url="_form.jsp" />
-        </form>
+        <div class="mee-edi-container">
+            <h2><i class="fa-solid fa-pen-to-square"></i> 編集</h2>
+            <form method="POST" action="<c:url value='?action=${actMee}&command=${commUpd}' />">
+                <c:import url="_form.jsp" />
+            </form>
 
-        <p>
-            <a class="delete" href="#" onclick="confirmDestroy();"><i class="fa-solid fa-trash-can icon"></i></a>
-        </p>
-        <form method="POST"
-            action="<c:url value='?action=${actMee}&command=${commDel}' />">
-            <input type="hidden" name="${AttributeConst.EMP_ID.getValue()}" value="${employee.id}" />
-            <input type="hidden" name="${AttributeConst.MET_ID.getValue()}" value="${meeting.id}" />
-            <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-        </form>
-        <script>
-            function confirmDestroy() {
-                if (confirm("TO DOも消えてしまいますが、本当に削除してよろしいですか？")) {
-                    document.forms[1].submit();
+            <p>
+                <a class="delete" href="#" onclick="confirmDestroy();"><i class="fa-solid fa-trash-can icon"></i></a>
+            </p>
+            <form method="POST"
+                action="<c:url value='?action=${actMee}&command=${commDel}' />">
+                <input type="hidden" name="${AttributeConst.EMP_ID.getValue()}" value="${employee.id}" />
+                <input type="hidden" name="${AttributeConst.MET_ID.getValue()}" value="${meeting.id}" />
+                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+            </form>
+            <script>
+                function confirmDestroy() {
+                    if (confirm("TO DOも消えてしまいますが、本当に削除してよろしいですか？")) {
+                        document.forms[1].submit();
+                    }
                 }
-            }
-        </script>
+            </script>
 
-        <p>
-            <a href="<c:url value='?action=Meeting&command=index' />">一覧に戻る</a>
-        </p>
+            <p>
+                <a href="<c:url value='?action=Meeting&command=index' />">一覧に戻る</a>
+            </p>
+        </div>
         </div>
     </c:param>
 </c:import>
