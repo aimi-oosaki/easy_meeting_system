@@ -12,6 +12,8 @@
 <c:set var="commIndex" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
+<c:set var="commPro" value="${ForwardConst.CMD_PROG.getValue()}" />
+<c:set var="commSti" value="${ForwardConst.CMD_STICKYNOTE.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
@@ -20,16 +22,16 @@
         <div id="home_menus_wrapper">
             <div class="top_menus">
                 <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />"><img class="home_img" src="/easy_meeting_system/img/newMeeting.png"></a>
+                    <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />"><img class="home_img" src="/easy_meeting_system/img/problem.png"></a>
                     <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">課題解決会議</a>
                 </div>
                 <div class="top-menu">
-                   <a href="<c:url value='?action=Task&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/meetingIndex.png"></a>
-                    <a href="<c:url value='?action=Task&command=${commIndex}' />" class="link-secondary text-decoration-none">進捗会議</a>
+                   <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/progress.png"></a>
+                    <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">進捗会議</a>
                 </div>
                 <div class="top-menu">
-                    <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/todo.png"></a>
-                    <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="link-secondary text-decoration-none">アイデア会議</a>
+                    <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/idea.png"></a>
+                    <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="link-secondary text-decoration-none">アイデア会議</a>
                 </div>
             </div>
         </div>
