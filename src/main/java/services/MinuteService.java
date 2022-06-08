@@ -113,13 +113,18 @@ public class MinuteService extends ServiceBase{
      * @param id
      * @return 取得データのインスタンス
      */
+    @SuppressWarnings("finally")
     public MinuteView findOneByMeeting(Meeting m) {
         Minute min = null;
+            try {
             min = em.createNamedQuery(JpaConst.Q_MINUTE_GET_BY_MEETING, Minute.class)
                     .setParameter(JpaConst.JPQL_PARM_MEETING, m)
                     .getSingleResult();
+            } catch(Exception e) {
 
-            return MinuteConverter.toView(min);
+            } finally{
+                return MinuteConverter.toView(min);
+            }
     }
 
     /**

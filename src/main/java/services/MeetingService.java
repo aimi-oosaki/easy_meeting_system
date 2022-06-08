@@ -6,6 +6,8 @@ import actions.views.AgendaConverter;
 import actions.views.AgendaView;
 import actions.views.MeetingConverter;
 import actions.views.MeetingView;
+import actions.views.TaskConverter;
+import actions.views.TaskView;
 import actions.views.TeamConverter;
 import actions.views.TeamView;
 import actions.views.TodoConverter;
@@ -13,6 +15,7 @@ import actions.views.TodoView;
 import constants.JpaConst;
 import models.Agenda;
 import models.Meeting;
+import models.Task;
 import models.Team;
 import models.Todo;
 import models.validators.MeetingValidator;
@@ -220,4 +223,21 @@ public class MeetingService extends ServiceBase{
 //        }
 ////        em.close();
 //    }
+
+    /**
+     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
+     * @param page ページ数
+     * @return 表示するデータのリスト
+     */
+    public List<TaskView> getPerPageByTeam(int page, Team t){
+        List<Task> Tasks = em.createNamedQuery(JpaConst.Q_TASK_GET_BY_TEAM_AND_STATUS, Task.class)
+                .setParameter(JpaConst.JPQL_PARM_TEAM, t)
+                .setParameter(JpaConst.JPQL_PARM_STATUS, 0)
+                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
+                .setMaxResults(JpaConst.ROW_PER_PAGE)
+                .getResultList();
+
+        return TaskConverter.toViewList(Tasks);
+    }
+
 }

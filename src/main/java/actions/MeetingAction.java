@@ -9,6 +9,8 @@ import actions.views.AgendaView;
 import actions.views.EmployeeView;
 import actions.views.MeetingConverter;
 import actions.views.MeetingView;
+import actions.views.TaskView;
+import actions.views.TeamConverter;
 import actions.views.TeamView;
 import actions.views.TodoView;
 import constants.AttributeConst;
@@ -16,6 +18,7 @@ import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
 import models.Meeting;
+import models.Team;
 import services.MeetingService;
 
 /**
@@ -312,7 +315,7 @@ public class MeetingAction extends ActionBase{
     }
 
     /**
-     * 進捗会議画面を表示する
+     * 会議選択画面を表示する
      * @throws ServletException
      * @throws IOException
      */
@@ -356,6 +359,42 @@ public class MeetingAction extends ActionBase{
 
         //詳細画面を表示
         forward(ForwardConst.FW_STICKY_NOTE);
+
+    }
+
+    /**
+     * 進捗会議画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void progress() throws ServletException, IOException{
+        //セッションからログイン中の従業員情報を取得
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+        //DBからログイン中の従業員が所属するチーム情報を取得
+        TeamView tv = service.findOneTeam(ev.getTeam().getId());
+        Team t = TeamConverter.toModel(tv);
+
+        //指定されたページ数の一覧画面に表示するデータを取得
+        int page = getPage();
+        List<TaskView> tasks = service.getPerPageByTeam(page, t);
+        putRequestScope(AttributeConst.EMPLOYEE, ev); //ログイン中の社員
+        putRequestScope(AttributeConst.TASKS, tasks); //取得したプロジェクトデータ
+
+        //idを条件に会議データを取得する
+        MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
+
+        if (mv == null) {
+            //データが取得できなかった場合はエラー画面を表示
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+            return;
+        }
+
+        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+
+        //詳細画面を表示
+        forward(ForwardConst.FW_MET_PROGRESS);
 
     }
 
