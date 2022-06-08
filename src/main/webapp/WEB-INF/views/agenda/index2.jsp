@@ -29,19 +29,13 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <table class="table">
-                        <tbody>
-                            <c:forEach var="agenda" items="${agendas}" varStatus="status">
-                                <!-- 未完了のTO DOなら表示 -->
-                                <tr class="row${status.count % 2}">
-                                    <td><c:out value="${status.count}" /></td>
-                                    <td><c:out value="${agenda.title}" /></td>
-                                    <td><a href="<c:url value='?action=${actAge}&command=${commEdit}&agenda_id=${agenda.id}&meeting_id=${meeting.id}' />" >編集</a></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                   <ol class="agenda-list">
+                      <c:forEach var="agenda" items="${agendas}" varStatus="status">
+                        <li><c:out value="${agenda.title}" /></li>
+                      </c:forEach>
+                   </ol>
                    <input class="submit-btn" type="button" onclick="location.href='<c:url value='?action=${actAge}&command=${commNew}&meeting_id=${meeting.id}' />'" value="追加">
+                   <a class="edit-link" href="<c:url value='?action=${actAge}&command=${commEdit}&meeting_id=${meeting.id}' />" >編集</a>
                 </c:otherwise>
             </c:choose>
             <br /><br />

@@ -154,16 +154,16 @@ public class AgendaAction extends ActionBase{
     public void edit() throws ServletException, IOException{
 
         //idを条件に募集データを取得する
-//        AgendaView av = service.findOne(toNumber(getRequestParam(AttributeConst.AGE_ID)));
+        AgendaView av = service.findOne(toNumber(getRequestParam(AttributeConst.AGE_ID)));
 
         //★追加 リクエストスコープから会議情報を取得する
         int page = getPage();
         MeetingView mv = service.findOneMeeting(toNumber(getRequestParam(AttributeConst.MET_ID)));
         Meeting m = MeetingConverter.toModel(mv);
 
-        List<AgendaView> agendas = service.getPerPage(page, m);
+//        List<AgendaView> agendas = service.getPerPage(page, m);
 
-        if (agendas == null) {
+        if (av == null) {
             //該当の募集データが存在しない、または
             //ログインしている従業員が募集の作成者でない場合はエラー画面を表示 ★後で追加する必要ある
             forward(ForwardConst.FW_ERR_UNKNOWN);
@@ -171,7 +171,7 @@ public class AgendaAction extends ActionBase{
         } else {
             String _token = getTokenId();
             putRequestScope(AttributeConst.TOKEN, getTokenId());
-            putRequestScope(AttributeConst.AGENDAS, agendas); //取得した募集データ;
+            putRequestScope(AttributeConst.AGENDA, av); //取得した募集データ;
             putRequestScope(AttributeConst.MEETING, mv); //取得した募集データ
         }
 
@@ -282,7 +282,7 @@ public class AgendaAction extends ActionBase{
     }
 
     /**
-     * 募集を削除する
+     * 議題を削除する
      * @throws ServletException
      * @throws IOException
      */

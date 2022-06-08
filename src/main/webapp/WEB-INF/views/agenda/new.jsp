@@ -40,7 +40,7 @@
            });
         });
         </script>
-
+        <br />
         <p><a href="<c:url value='?action=Meeting&command=${commIdx}' />">一覧に戻る</a></p>
     </c:param>
 </c:import>
