@@ -18,6 +18,7 @@
     <div class="content-wrapper">
         <%-- 画像メニュー --%>
         <div id="home_menus_wrapper">
+            <p>あいうえお</p>
             <div class="top_menus">
                 <div class="top-menu">
                     <a href="<c:url value='?action=Meeting&command=${commNew}' />"><img class="home_img" src="/img/newMeeting.png"></a>
