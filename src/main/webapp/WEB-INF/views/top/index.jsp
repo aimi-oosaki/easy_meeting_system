@@ -24,6 +24,7 @@
     <div id="topPage_container">
         <div class="header_conteiner clearfix">
             <div class="header_left">
+<<<<<<< HEAD
                <img class="logo" src="/img/logo.png">
             </div>
             <div class="header_right">
@@ -52,6 +53,36 @@
             </div>
             <div id="exp_container-right">
                 <img src="/img/easy.png">
+=======
+               <img class="logo" src="/easy_meeting_system/img/logo.png">
+            </div>
+            <div class="header_right">
+                <input class="input_btn" type="button" onclick="location.href='<c:url value='?action=${actAut}&command=${commLogin}' />'" value="ログイン">
+            </div>
+        </div>
+        <div id="top_container">
+            <h1>ジタン会議へようこそ</h1>
+            <p>ジタン会議なら、会議に必要なさまざまなツールでよりスムーズな会議を行えます。</p>
+            <div class="btn-signin"><input class="signin_btn" type="button" onclick="location.href='<c:url value='?action=${actEmp}&command=${commSignUp}' />'" value="新規登録"></div>
+        </div>
+        <div id="exp_container">
+            <div id="exp_container-left">
+                <div class="explain">
+                    <h2>詳細な情報</h2>
+                    <p>サイトやアプリのユーザー像を詳しく分析し、ご自身のマーケティングやコンテンツ、商品などのパフォーマンスを的確に把握できます。</p>
+                </div>
+                <div class="explain">
+                    <h2>Google でしか得られないインサイト</h2>
+                    <p>Google 独自のインサイトと機械学習機能によって、お客様のデータを最大限に活用できます。</p>
+                </div>
+                <div class="explain">
+                    <h2>インサイトを成果に結び付ける</h2>
+                    <p>アナリティクスは Google のさまざまな広告サービスやパブリッシャー サービスと連携できるため、インサイトを活用してビジネス上の成果につなげられます。</p>
+                </div>
+            </div>
+            <div id="exp_container-right">
+                <img src="/easy_meeting_system/img/easy.png">
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
             </div>
         </div>
     </div>

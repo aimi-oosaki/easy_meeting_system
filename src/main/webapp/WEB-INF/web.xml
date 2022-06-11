@@ -7,9 +7,18 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.css</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.png</url-pattern>
   </servlet-mapping>
   <display-name>easy_meeting_system</display-name>
 </web-app>
+=======
+    <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.png</url-pattern>
+  </servlet-mapping>
+  <display-name>easy_meeting_system</display-name>
+</web-app>
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git

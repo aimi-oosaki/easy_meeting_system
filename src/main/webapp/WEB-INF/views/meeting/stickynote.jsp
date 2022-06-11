@@ -399,7 +399,11 @@
             deleteText.className = 'delete-text';
             deleteButton.appendChild(deleteText);
             let deleteIcon = document.createElement('img');
+<<<<<<< HEAD
 //             deleteIcon.src = '/img/delete-24px-red.svg';
+=======
+//             deleteIcon.src = '/easy_meeting_system/img/delete-24px-red.svg';
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
             deleteIcon.className = 'delete-icon';
             deleteButton.appendChild(deleteIcon);
             noteMenu.appendChild(deleteButton);

@@ -21,7 +21,11 @@
             <c:when test="${empty minute}">
             <!-- 議事録がない時 -->
                 <div class="nothing">
+<<<<<<< HEAD
                     <img class="home_img" src="/img/nothing.png">
+=======
+                    <img class="home_img" src="/easy_meeting_system/img/nothing.png">
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
                     <h2>まだ作成されていません</h2>
                     <br />
                     <div class="center-btn">

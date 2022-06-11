@@ -13,4 +13,8 @@
 			<property name="javax.persistence.jdbc.user" value="be0cac8c7869a9"/>
 		</properties>
 	</persistence-unit>
+<<<<<<< HEAD
 </persistence>
+=======
+</persistence>
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
