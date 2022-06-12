@@ -18,8 +18,6 @@
     <div class="content-wrapper">
         <%-- 画像メニュー --%>
         <div id="home_menus_wrapper">
-<<<<<<< HEAD
-            <p>あいうえお</p>
             <div class="top_menus">
                 <div class="top-menu">
                     <a href="<c:url value='?action=Meeting&command=${commNew}' />"><img class="home_img" src="/img/newMeeting.png"></a>
@@ -31,34 +29,6 @@
                 </div>
                 <div class="top-menu">
                     <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/img/todo.png"></a>
-=======
-<<<<<<< HEAD
-            <p>あいうえお</p>
-            <div class="top_menus">
-                <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commNew}' />"><img class="home_img" src="/img/newMeeting.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commNew}' />" class="link-secondary text-decoration-none">新しい会議を作成</a>
-                </div>
-                <div class="top-menu">
-                   <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/img/meetingIndex.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="link-secondary text-decoration-none">会議一覧</a>
-                </div>
-                <div class="top-menu">
-                    <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/img/todo.png"></a>
-=======
-            <div class="top_menus">
-                <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commNew}' />"><img class="home_img" src="/easy_meeting_system/img/newMeeting.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commNew}' />" class="link-secondary text-decoration-none">新しい会議を作成</a>
-                </div>
-                <div class="top-menu">
-                   <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/meetingIndex.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commIndex}' />" class="link-secondary text-decoration-none">会議一覧</a>
-                </div>
-                <div class="top-menu">
-                    <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/todo.png"></a>
->>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
->>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
                     <a href="<c:url value='?action=Todo&command=${commIndex}' />" class="link-secondary text-decoration-none">TO DOリスト</a>
                 </div>
             </div>

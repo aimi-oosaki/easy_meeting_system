@@ -22,7 +22,6 @@
         <div id="home_menus_wrapper">
             <div class="top_menus">
                 <div class="top-menu">
-<<<<<<< HEAD
                     <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />"><img class="home_img" src="/img/problem.png"></a>
                     <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">課題解決会議</a>
                 </div>
@@ -32,31 +31,6 @@
                 </div>
                 <div class="top-menu">
                     <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="top_menu"><img class="home_img" src="/img/idea.png"></a>
-
-=======
-<<<<<<< HEAD
-                    <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />"><img class="home_img" src="/img/problem.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">課題解決会議</a>
-                </div>
-                <div class="top-menu">
-                   <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="top_menu"><img class="home_img" src="/img/progress.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">進捗会議</a>
-                </div>
-                <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="top_menu"><img class="home_img" src="/img/idea.png"></a>
-=======
-                    <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />"><img class="home_img" src="/easy_meeting_system/img/problem.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commProb}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">課題解決会議</a>
-                </div>
-                <div class="top-menu">
-                   <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/progress.png"></a>
-                    <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">進捗会議</a>
-                </div>
-                <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="top_menu"><img class="home_img" src="/easy_meeting_system/img/idea.png"></a>
->>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
->>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
-                    <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="link-secondary text-decoration-none">アイデア会議</a>
                 </div>
             </div>
         </div>
