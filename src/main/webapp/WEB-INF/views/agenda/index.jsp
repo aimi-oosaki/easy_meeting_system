@@ -22,7 +22,15 @@
             <c:choose>
                 <c:when test="${empty agendas}">
                     <div class="nothing">
+<<<<<<< HEAD
                         <img class="home_img" src="/img/nothing.png">
+=======
+<<<<<<< HEAD
+                        <img class="home_img" src="/img/nothing.png">
+=======
+                        <img class="home_img" src="/easy_meeting_system/img/nothing.png">
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
+>>>>>>> branch 'main' of https://github.com/aimi-oosaki/easy_meeting_system.git
                         <h2>まだ作成されていません</h2>
                         <br />
                         <div class="center-btn"><input class="submit-btn nothing-btn" type="button" onclick="location.href='<c:url value='?action=${actAge}&command=${commNew}&meeting_id=${meeting.id}' />'" value="作成"></div>
