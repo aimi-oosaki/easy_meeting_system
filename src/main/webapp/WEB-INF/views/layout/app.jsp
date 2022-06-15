@@ -28,6 +28,7 @@
         <title>ジタン会議</title>
         <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
         <link rel="stylesheet" href="<c:url value='/css/style.css' />">
+        <link rel="icon" href="<c:url value='/img/favicon.png' />">
         <!--FontAwesomeの読み込み-->
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLwvnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
         <script src="https://kit.fontawesome.com/d69d5f4184.js" crossorigin="anonymous"></script>
