@@ -9,13 +9,15 @@
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
     <div id="content-wrapper">
-        <h2>会議 新規登録</h2>
+        <div class="mee-edi-container">
+            <h2>会議 新規登録</h2>
 
-        <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
-            <c:import url="_form.jsp" />
-        </form>
-        <br />
-        <p><a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>
+            <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
+                <c:import url="_form.jsp" />
+            </form>
+            <br />
+            <p><a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>
+        </div>
     </div>
     </c:param>
 </c:import>
