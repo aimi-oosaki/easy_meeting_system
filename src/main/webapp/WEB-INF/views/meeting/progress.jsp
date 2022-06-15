@@ -8,6 +8,7 @@
 <c:set var="actMee" value="${ForwardConst.ACT_MEE.getValue()}" />
 <c:set var="actTod" value="${ForwardConst.ACT_TOD.getValue()}" />
 <c:set var="actWan" value="${ForwardConst.ACT_WAN.getValue()}" />
+<c:set var="actTas" value="${ForwardConst.ACT_TAS.getValue()}" />
 <c:set var="commEdit" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commIndex" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commProb1" value="${ForwardConst.CMD_PROB1.getValue()}" />
