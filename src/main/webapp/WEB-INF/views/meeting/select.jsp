@@ -30,7 +30,7 @@
                     <a href="<c:url value='?action=Meeting&command=${commPro}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">進捗会議</a>
                 </div>
                 <div class="top-menu">
-                    <a href="<c:url value='?action=Meeting&command=${commSti}' />" class="top_menu"><img class="home_img" src="/img/idea.png"></a>
+                    <a href="<c:url value='?action=Meeting&command=${commSti}&meeting_id=${meeting.id}' />" class="top_menu"><img class="home_img" src="/img/idea.png"></a>
                     <a href="<c:url value='?action=Meeting&command=${commSti}&meeting_id=${meeting.id}' />" class="link-secondary text-decoration-none">アイデア会議</a>
                 </div>
             </div>
