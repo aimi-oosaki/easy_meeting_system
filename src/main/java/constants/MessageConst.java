@@ -8,6 +8,7 @@ public enum MessageConst {
 
     //認証
     I_LOGINED("ログインしました"),
+    GUEST_LOGINED("ゲストとしてログインしました"),
     E_LOGINED("ログインに失敗しました。"),
     I_LOGOUT("ログアウトしました。"),
 

@@ -5,6 +5,7 @@
 
 <c:set var="action" value="${ForwardConst.ACT_AUTH.getValue()}" />
 <c:set var="command" value="${ForwardConst.CMD_LOGIN.getValue()}" />
+<c:set var="guestCom" value="${ForwardConst.CMD_GUEST_LOGIN.getValue()}" />
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -16,14 +17,10 @@
         <title>ジタン会議</title>
         <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
         <link rel="stylesheet" href="<c:url value='/css/style.css' />">
-        <!--FontAwesomeの読み込み-->
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLwvnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-        <!-- BootstrapのCSS読み込み -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <!-- jQuery読み込み -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- BootstrapのJS読み込み -->
-        <script src="js/bootstrap.min.js"></script>
+<!--         BootstrapのCSS読み込み -->
+<!--         <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+<!--         jQuery読み込み -->
+<!--         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     </head>
     <body>
     <div class="signup_wrapper">
@@ -53,7 +50,12 @@
                 <br /><br />
 
                 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-                <button type="submit">ログイン</button>
+                <button class="login-btn" type="submit">ログイン</button>
+            </form>
+            <br />
+            <form method="POST" action="<c:url value='/?action=${action}&command=${guestCom}' />">
+                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+                <button class="login-btn" type="submit">ゲストとしてログイン</button>
             </form>
         </div>
         <div id="footer">

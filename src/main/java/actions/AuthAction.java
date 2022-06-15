@@ -104,6 +104,55 @@ public class AuthAction extends ActionBase {
     }
 
     /**
+     * ゲストログイン処理を行う
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void guestLogin() throws ServletException, IOException {
+
+        String code = "1";
+        String plainPass = "1";
+        String pepper = getContextScope(PropertyConst.PEPPER);
+        int company_id = 1; //★追加
+
+        //有効な従業員か認証する
+        Boolean isValidEmployee = service.validateLogin(code, plainPass, pepper, company_id);
+
+        if (isValidEmployee) {
+            //認証成功の場合
+
+            //CSRF対策 tokenのチェック
+            if (checkToken()) {
+                //ログインした従業員のDBデータを取得
+                EmployeeView ev = service.findOne(code, plainPass, pepper, company_id);
+                //セッションにログインした従業員を設定
+                putSessionScope(AttributeConst.LOGIN_EMP, ev);
+                //セッションにログイン完了のフラッシュメッセージを設定
+                putSessionScope(AttributeConst.FLUSH, MessageConst.GUEST_LOGINED.getMessage());
+                //トップページへリダイレクト
+                redirect(ForwardConst.ACT_HOME, ForwardConst.CMD_SHOW);
+            }
+        } else {
+            //認証失敗の場合
+
+            //CSRF対策用トークンを設定
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            //認証失敗エラーメッセージ表示フラグをたてる
+            putRequestScope(AttributeConst.LOGIN_ERR, true);
+            //入力された従業員コードを設定
+            putRequestScope(AttributeConst.EMP_CODE, code);
+            //入力された会社コードを設定
+            putRequestScope(AttributeConst.EMP_COM_ID, company_id);
+
+            //ログイン画面を表示
+            forward(ForwardConst.FW_LOGIN);
+
+        }
+
+
+    }
+
+    /**
      * ログアウト処理を行う
      * @throws ServletException
      * @throws IOException

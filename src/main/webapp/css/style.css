@@ -231,6 +231,16 @@ pre {
     text-align : center ;
 }
 
+/* ログイン画面 */
+.signin {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.signin button{
+    width: 30%;
+}
+
 /* 新規登録画面 */
 .signup_wrapper {
     padding-top: 100px;
@@ -856,78 +866,6 @@ ol.agenda-list li:before{
 }
 
 /* 付箋 */
-/* #stickynote *{ */
-/*     padding: 0; */
-/*     margin: 0; */
-/* } */
-
-/* #stickynote{ */
-/*     background-color:#c68c53a8; */
-/*     font-family: "Architects Daughter"; */
-/*     font-size: 24px; */
-/* } */
-
-/* .main-container{ */
-/*     width: 95%; */
-/*     margin: auto; */
-/* } */
-
-/* .container1 { */
-/*     margin-left: 5%; */
-/* } */
-
-/* .container2 { */
-/*     display: flex; */
-/*     justify-content: flex-start; */
-/*     flex-wrap: wrap; */
-/*     margin-top: 20px; */
-/*     margin-left: 5%; */
-/* } */
-
-/* .container3 { */
-/* /*     display: none; */ */
-/*     position: absolute; */
-/*     top: 26%; */
-/*     left: 40%; */
-/* } */
-
-/* #note-text{ */
-/*     box-shadow: 10px 10px 24px 0px tgba(0,0,0,0.75); */
-/*     outline: none; */
-/*     border: none; */
-/*     width: 275px; */
-/*     height: 275px; */
-/*     padding: 40px 25px 25px 25px; */
-/*     background-color: #ebb328; */
-/* } */
-
-/* #note-text { */
-/*     box-shadow: 10px 10px 24px 0px tgba(0,0,0,0.75); */
-/*     outline: none; */
-/*     border: none; */
-/*     width: 275px; */
-/*     height: 275px; */
-/*     padding: 40px 25px 25px 25px; */
-/*     background-color: #ebb328; */
-/* } */
-
-/* svg { */
-/*     color: gray; */
-/* } */
-
-/* #check-icon{ */
-/*     position: absolute; */
-/*     right: 17%; */
-/*     top: 4%; */
-/* } */
-
-/* #x-icon{ */
-/*     position: absolute; */
-/*     right: 5%; */
-/*     top: 4%; */
-/* } */
-
-
 /*To remove dotted outline in firefox*/
 button::-moz-focus-inner {
     border: 0;
@@ -1167,10 +1105,17 @@ body {
         margin-right: 10px;
     }
 
-    /* 進捗会議 */
-    h4{
-        margin: 0 auto;
-        text-align: center;
-        color: #C4914C;
-    }
 }
+
+.note-btn{
+    width: 90%;
+    margin-top: 1000px;
+}
+
+/* 進捗会議 */
+h4{
+    margin: 0 auto;
+    text-align: center;
+    color: #C4914C;
+}
+
