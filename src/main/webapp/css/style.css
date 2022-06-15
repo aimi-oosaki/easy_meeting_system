@@ -755,10 +755,6 @@ ol.agenda-list li:before{
     height: 100%;
 }
 
-#agenda-wrapper input{
-/*     width: 100%; */
-}
-
 .agenda-table {
     width: 100%;
 }
@@ -854,15 +850,15 @@ ol.agenda-list li:before{
 }
 
 #status-danger{
-    background-color: #F39B77;
+    background-color: #FC9D9D;
 }
 
 #status-safe {
-    background-color: #87C999;
+    background-color: #9DDCDC;
 }
 
 #status-cautious {
-    background-color: #FEF898;
+    background-color: #F0E68C;
 }
 
 /* 付箋 */
@@ -911,11 +907,23 @@ body {
      height: 50px;
      width: 50px;
      border-radius: 100px;
-     background-color: orange;
+     background-color: #FFBF5D;
      font-size: 30px;
      color: white;
      z-index: 50;
      cursor: pointer;
+ }
+
+  .idea-btn{
+     font-size: 20px;
+     padding: 5px 10px;
+     position: fixed;
+     bottom: 3.5vw;
+     right: 3.5vw;
+     border: none;
+     border-radius: 2px;
+     background-color: #FFBF5D;
+     z-index: 50;
  }
 
  .add-button:active {

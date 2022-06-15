@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="constants.ForwardConst" %>
+<c:set var="actTod" value="${ForwardConst.ACT_TOD.getValue()}" />
+<c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <!-- タイマー -->
         <c:import url="_timer.jsp" />
+         <input class= "idea-btn" type="button" onclick="location.href='<c:url value='?action=${actTod}&command=${commNew}&meeting_id=${meeting.id}' />'" value="次へ">
         <br />
         <!-- 付箋 -->
         <button class="add-button" onmousedown="addNote()">+</button>
-        <p>付箋を追加</p>
-        <input class= "mee-btn-right" type="button" onclick="location.href='<c:url value='?action=${actTod}&command=${commNew}&meeting_id=${meeting.id}' />'" value="次へ">
     </c:param>
 </c:import>
 
