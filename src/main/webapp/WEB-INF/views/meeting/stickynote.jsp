@@ -19,16 +19,17 @@
 <!-- JavaScript -->
 <script>
     document.onmousemove = snapNote; //マウスが動いた時は、選択された付箋をマウスの位置まで動かす
-    document.ontouchmove = snapNoteTouch; //Logic for snapping to touch is slightly different than mouse
-    document.onmouseup = placeNote; //When the mouse comes up, place the selected note where the user chose
-    document.ontouchend = placeNote; //When the touch is released, place the note
-    document.onmousedown = clearMenus; //Clear menus when the mouse is clicked to the side
-    window.addEventListener('load', loadNotes); // When document has loaded, load any notes that are in local storage
+    document.ontouchmove = snapNoteTouch;
+    document.onmouseup = placeNote; //マウスが上にきたら、ユーザーが選択した場所に選択した付箋を置きます
+    document.ontouchend = placeNote; //タッチを離したら、付箋を置く
+    document.onmousedown = clearMenus; //マウスが横にクリックされた時、メニューをクリアする
+    window.addEventListener('load', loadNotes); // ドキュメントが読み込まれたら、ローカルストレージにある付箋を読み込み
     if ('onvisibilitychange' in document)
         document.addEventListener('visibilitychange', storeNotes);
     else window.addEventListener('pagehide', storeNotes);
 
-    let notesCount = 0; //Used to give a unique id to each note
+    let notesCount = 0; //それぞれの付箋に一意のIDを与えるために使用
+
 
     /**
      * addNote：新しい付箋を作成してdocumentに追加
@@ -113,12 +114,10 @@
                 noteCopy.style.top = event.clientY - noteCopy.offsetHeight / 2 + 'px';
                 noteCopy.style.left = event.clientX - noteCopy.offsetWidth / 2 + 'px';
 
-                let notes = document.getElementsByClassName('note'); // Get all the notes in the document
-
+                let notes = document.getElementsByClassName('note'); // すべての付箋を取得
                 for (let i = 0; i < notes.length; i++) {
-                    // Loop through the notes
-                    let rect = notes[i].getBoundingClientRect(); // Get the bounding rectangle to know the positon of the note
 
+                    let rect = notes[i].getBoundingClientRect(); // // 位置を知るために動いた長方形を取得
                     //付箋をつかむ
                     if (
                         currentSwap !== null &&
@@ -202,9 +201,8 @@
                 let notes = document.getElementsByClassName('note'); //すべての付箋を取得する
 
                 for (let i = 0; i < notes.length; i++) {
-                    // Loop through the notes
 
-                    let rect = notes[i].getBoundingClientRect(); // Get the bounding rectangle to know the positon of the noteその付箋の位置を知るために
+                    let rect = notes[i].getBoundingClientRect(); // 位置を知るために動いた長方形を取得
 
                     //付箋を交換する
                     if (
@@ -319,7 +317,7 @@
 
         noteCopy.style.backgroundColor = color;
 
-        noteCopy.style.animationName = 'none'; //Remove fade-in animation
+        noteCopy.style.animationName = 'none'; //フェードインアニメーションを削除
 
         return noteCopy;
     }
@@ -348,7 +346,7 @@
     function noteMenu() {
         console.log('option button pressed');
 
-        let menus = document.getElementsByClassName('note-menu'); // Get all menus
+        let menus = document.getElementsByClassName('note-menu'); // すべてのメニューを取得
 
         for (let i = 0; i < menus.length; i++) {
             menus[i].remove();
@@ -385,7 +383,7 @@
         deleteButton.className = 'delete-note';
         deleteButton.onmousedown = () => {
             setTimeout(deleteNote.bind(deleteButton), 155);
-        }; //Add a delay to let user see button press
+        }; //ボタン押下をユーザに見せるために、遅れを追加
         let deleteText = document.createElement('p');
         deleteText.textContent = 'Delete';
         deleteText.className = 'delete-text';
@@ -395,7 +393,7 @@
         deleteButton.appendChild(deleteIcon);
         noteMenu.appendChild(deleteButton);
 
-        this.parentNode.appendChild(noteMenu); // Add the menu to the note
+        this.parentNode.appendChild(noteMenu); // メニューを付箋に追加
     }
 
     /**
@@ -422,8 +420,8 @@
         let noteMenus = document.getElementsByClassName('note-menu'); // すべてのメニューを取得
 
         for (let i = 0; i < noteMenus.length; i++) {
-            // Loop through the menus
-            let rect = noteMenus[i].getBoundingClientRect(); // Get the bounding rectangle to know the position
+            // メニューをループ
+            let rect = noteMenus[i].getBoundingClientRect(); // 位置を取得するために、動いた長方形を取得
 
             // マウスがメニューの上になければ取り除く
             if (
@@ -433,7 +431,7 @@
                 event.clientY > rect.bottom
             ) {
                 if (noteMenus[i].id == 'active') {
-                    //Remove the note only on a second click to account for clicking the option button付箋を取り除く
+                    //2回目のクリックでのみメモを削除
                     noteMenus[i].remove();
                 } else {
                     noteMenus[i].id = 'active';
@@ -443,15 +441,15 @@
     } //End clearMenus
 
     /**
-     * deleteNote deletes a note whose delete button was pressed and initiates the reordering animation.
+     * deleteNote 削除ボタンが押された付箋を削除し、並び替えのにアニメーションを開始する
      */
     function deleteNote() {
         let thisNote = this.parentNode.parentNode;
 
         let notes = document.getElementsByClassName('note');
-        let oldRects = new Map(); // Initialize an array for the old note positions
+        let oldRects = new Map();
 
-        // Collect all the current note positions
+        // すべての付箋の現在の位置を取得
         for (let i = 0; i < notes.length; i++) {
             let rect = notes[i].getBoundingClientRect();
             oldRects.set(notes[i].id, rect);
@@ -459,26 +457,26 @@
 
         thisNote.remove();
 
-        animateReorder(oldRects, 300); // Using the old positions, animate the reording of the notes over the specified time
+        animateReorder(oldRects, 300); // 古い位置を使って、指定された時間にわたって付箋の順序をアニメーション化
     }
 
     /**
-     * Takes the old positions of elements and animates them to their new positions
-     * @param {Map} oldRects dictionary of note id's and their rects
+     * 古い要素位置を取得し、それらを新しい位置にアニメーション化
+     * @param {Map} oldRects
      * @param {number} duration
      */
     function animateReorder(oldRects, duration) {
         console.log(oldRects);
         let notes = document.getElementsByClassName('note'); // Get all the notes
-        let newRects = new Map(); // Initialize array for collecting new positions
+        let newRects = new Map();
 
-        // Collect the new positions
+        // 新しい位置を集める
         for (let i = 0; i < notes.length; i++) {
             let newRect = notes[i].getBoundingClientRect();
             newRects.set(notes[i].id, newRect);
         }
 
-        // Set initial positions
+        // 最初の位置をセット
         let offsetX = parseFloat(window.getComputedStyle(notes[0]).marginLeft);
         let offsetY = parseFloat(window.getComputedStyle(notes[0]).marginTop);
         let width = parseFloat(window.getComputedStyle(notes[0]).width);
@@ -491,16 +489,15 @@
             }
         }
 
-        let timePassed = 0; // Time passed since animation began, in ms
-        let lastFrame = Date.now(); //The timestamp of the previous frame
+        let timePassed = 0; // アニメーションが始まってからの時間（ミリ秒）
+        let lastFrame = Date.now(); //タイムスタンプ
 
-        // This function animates a single frame of the animation and then passed itself to `requestAnimationFrame`.
         function animateFrame() {
-            let deltaT = Date.now() - lastFrame; // Time difference between now and the last frame
+            let deltaT = Date.now() - lastFrame; // 現在とlastFrameの時間差
             timePassed += deltaT;
             lastFrame = Date.now();
 
-            // Update the positions of the notes
+            // 付箋の位置を更新
             for (let i = 0; i < notes.length; i++) {
                 if (oldRects.has(notes[i].id) && newRects.has(notes[i].id)) {
                     let deltaX =
@@ -517,7 +514,7 @@
                 }
             }
 
-            // Check if the proper amount of time has passed
+            // 適切な時間が経過したか確認する
             if (timePassed < duration) {
                 requestAnimationFrame(animateFrame);
             } else {
@@ -551,10 +548,8 @@
     }
 
     /**
-     * storeNotes stores any notes that are on the
-     * screen in local storage
+     * ローカルにある画面上の付箋を保存する
      *
-     * @returns {void}
      */
     function storeNotes() {
         /**
@@ -584,10 +579,8 @@
     }
 
     /**
-     * loadNotes gets the notes stored in localStorage,
-     * if there are any, and adds them to the document.
+     * loadNotes ローカルに保存した付箋を取得し、documentに追加
      *
-     * @returns {void}
      */
     function loadNotes() {
         const data = localStorage.getItem('notes');
