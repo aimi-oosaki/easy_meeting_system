@@ -21,6 +21,7 @@ public class IdeaService extends ServiceBase{
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、IdeaViewのリストで返却する
      * @param page ページ数
+     * @param want 募集インスタンス
      * @return 表示するデータのリスト
      */
     public List<IdeaView> getPerPage(int page, Want want){
@@ -33,20 +34,6 @@ public class IdeaService extends ServiceBase{
         return IdeaConverter.toViewList(ideas);
     }
 
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、IdeaViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<IdeaView> getIdea(){
-//        List<Idea> Ideas = em.createNamedQuery(JpaConst.Q_MEE_GET_ALL, Meeting.class)
-//                .getResultList();
-//
-//        return MeetingConverter.toViewList(meetings);
-//    }
-
-    /**
-
     /**
      * idを条件に取得したデータをWantViewのインスタンスで返却する
      * @param id
@@ -58,7 +45,7 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * employee_idを条件に取得したデータをIdeaViewのインスタンスで返却する
+     * employee_idを条件に取得したデータをEmployeeViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -68,7 +55,7 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * meeting_idを条件に取得したデータをMeetingViewのインスタンスで返却する
+     * want_idを条件に取得したデータをWantViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -78,8 +65,8 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力されたアイデアの登録内容を元にデータを1件作成し、アイデアテーブルに登録する
+     * @param iv 画面から入力されたアイデアの登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(IdeaView iv){
@@ -99,7 +86,7 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集のアイデアの内容を元にデータを1件作成し、アイデアテーブルを更新する
+     * 画面から入力されたアイデアの内容を元にデータを1件更新し、アイデアテーブルを更新する
      * @param iv 画面から入力されたアイデアの登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
@@ -127,8 +114,8 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * 募集データを削除する
-     * @param w DBに登録された募集の登録内容
+     * アイデアデータを削除する
+     * @param i DBに登録されたアイデアの登録内容
      */
     public void destroy(Idea i) {
         em.getTransaction().begin();
@@ -139,7 +126,7 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Ideaのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -150,7 +137,7 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件に従業員データを1件取得し、Employeeのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -161,7 +148,7 @@ public class IdeaService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件に募集データを1件取得し、Wantのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */

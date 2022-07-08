@@ -12,8 +12,8 @@ import models.Want;
 public class WantConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param wv WantViewのインスタンス
+     * @return Wantのインスタンス
      */
     public static Want toModel(WantView wv) {
         return new Want(
@@ -27,8 +27,8 @@ public class WantConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param w Wantのインスタンス
+     * @return WantViewのインスタンス
      */
     public static WantView toView(Want w) {
         if(w == null) {
@@ -60,8 +60,8 @@ public class WantConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param w DTOモデル(コピー先)
+     * @param wv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Want w, WantView wv) {
         w.setId(wv.getId());

@@ -23,6 +23,7 @@ public class EmployeeService extends ServiceBase {
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、EmployeeViewのリストで返却する
      * @param page ページ数
+     * @param company_id 会社ID
      * @return 表示するデータのリスト
      */
     public List<EmployeeView> getPerPage(int page, int company_id) {
@@ -47,11 +48,12 @@ public class EmployeeService extends ServiceBase {
     }
 
     /**
-     * 社員番号、パスワードを条件に取得したデータをEmployeeViewのインスタンスで返却する
+     * 社員番号、パスワード、会社IDを条件に取得したデータをEmployeeViewのインスタンスで返却する
      * @param code 社員番号
      * @param plainPass パスワード文字列
      * @param pepper pepper文字列
-     * @return 取得データのインスタンス 取得できない場合null
+     * @param company_id 会社ID
+     * @return 取得データのインスタンス
      */
     public EmployeeView findOne(String code, String plainPass, String pepper, Integer company_id) {
         Employee e = null;
@@ -94,8 +96,9 @@ public class EmployeeService extends ServiceBase {
     }
 
     /**
-     * 社員番号を条件に該当するデータの件数を取得し、返却する
+     * 社員番号、会社IDを条件に該当するデータの件数を取得し、返却する
      * @param code 社員番号
+     * @param company_id 会社ID
      * @return 該当するデータの件数
      */
     public long countByCode(String code, Integer company_id) {
@@ -112,6 +115,7 @@ public class EmployeeService extends ServiceBase {
      * 画面から入力された従業員の登録内容を元にデータを1件作成し、従業員テーブルに登録する
      * @param ev 画面から入力された従業員の登録内容
      * @param pepper pepper文字列
+     * @param company_id 会社ID
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(EmployeeView ev, String pepper, Integer company_id) {
@@ -134,7 +138,7 @@ public class EmployeeService extends ServiceBase {
 
     /**
      * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * @param tv 画面から入力されたチームの登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> validateTeam(TeamView tv){
@@ -149,9 +153,9 @@ public class EmployeeService extends ServiceBase {
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
-     * @return バリデーションや登録処理中に発生したエラーのリスト
+     * 画面から入力されたチームの登録内容を元にデータを1件作成し、チームテーブルに登録する
+     * @param tv 画面から入力されたチームの登録内容
+     * @return 取得データのインスタンス
      */
     public TeamView createTeam(TeamView tv){
         //バリデーションエラーがなければデータを登録する
@@ -167,6 +171,7 @@ public class EmployeeService extends ServiceBase {
      * 画面から入力された従業員の更新内容を元にデータを1件作成し、従業員テーブルを更新する
      * @param ev 画面から入力された従業員の登録内容
      * @param pepper pepper文字列
+     * @param company_id 会社ID
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(EmployeeView ev, String pepper, Integer company_id) {
@@ -233,6 +238,7 @@ public class EmployeeService extends ServiceBase {
      * @param code 社員番号
      * @param plainPass パスワード
      * @param pepper pepper文字列
+     * @param company_id 会社ID
      * @return 認証結果を返却す(成功:true 失敗:false)
      */
     public Boolean validateLogin(String code, String plainPass, String pepper, Integer company_id) {
@@ -277,14 +283,11 @@ public class EmployeeService extends ServiceBase {
     /**
      * 従業員データを1件登録する
      * @param ev 従業員データ
-     * @return 登録結果(成功:true 失敗:false)
      */
     private void create(EmployeeView ev) {
-
         em.getTransaction().begin();
         em.persist(EmployeeConverter.toModel(ev));
         em.getTransaction().commit();
-
     }
 
     /**
@@ -292,17 +295,15 @@ public class EmployeeService extends ServiceBase {
      * @param ev 画面から入力された従業員の登録内容
      */
     private void update(EmployeeView ev) {
-
         em.getTransaction().begin();
         Employee e = findOneInternal(ev.getId());
         EmployeeConverter.copyViewToModel(e, ev);
         em.getTransaction().commit();
-
     }
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、TeamViewのリストで返却する
-     * @param page ページ数
+     * @param c 会社ID
      * @return 表示するデータのリスト
      */
     public List<TeamView> getTeam(Integer c){

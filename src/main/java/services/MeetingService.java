@@ -21,11 +21,11 @@ import models.Todo;
 import models.validators.MeetingValidator;
 
 /**
- * 従業員テーブルの操作に関わる処理を行うクラス
+ * 会議テーブルの操作に関わる処理を行うクラス
  */
 public class MeetingService extends ServiceBase{
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
+     * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
      * @param page ページ数
      * @return 表示するデータのリスト
      */
@@ -39,7 +39,7 @@ public class MeetingService extends ServiceBase{
     }
 
     /**
-     * idを条件に取得したデータをWantViewのインスタンスで返却する
+     * idを条件に取得したデータをMeetingViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -60,7 +60,7 @@ public class MeetingService extends ServiceBase{
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、AgendViewのリストで返却する
-     * @param meeting_id 会議ID
+     * @param m 会議インスタンス
      * @return 表示するデータのリスト
      */
     public List<AgendaView> getAgendas(Meeting m){
@@ -72,8 +72,8 @@ public class MeetingService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力された会議の登録内容を元にデータを1件作成し、会議テーブルに登録する
+     * @param mv 画面から入力された会議の登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(MeetingView mv){
@@ -93,8 +93,8 @@ public class MeetingService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力された会議の更新内容を元にデータを1件作成し、会議テーブルを更新する
+     * @param mv 画面から入力された会議の登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(MeetingView mv){
@@ -121,20 +121,8 @@ public class MeetingService extends ServiceBase{
         return errors;
     }
 
-//    /**
-//     * 募集データを削除する
-//     * @param w DBに登録された募集の登録内容
-//     */
-//    public void destroy(Meeting m) {
-//        em.getTransaction().begin();
-//        m = em.merge(m);
-//        em.remove(m);       // データ削除
-//        em.getTransaction().commit();
-//        em.close();
-//    }
-
     /**
-     * idを条件に従業員データを論理削除する
+     * idを条件に会議データを論理削除する
      * @param id
      */
     public void destroy(Integer id) {
@@ -151,7 +139,7 @@ public class MeetingService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Meetingのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -173,8 +161,8 @@ public class MeetingService extends ServiceBase{
     }
 
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-     * @param page ページ数
+     * 指定されたページ数の一覧画面に表示するデータを取得し、TeamViewのリストで返却する
+     * @param compnay_id 会議ID
      * @return 表示するデータのリスト
      */
     public List<TeamView> getTeam(Integer compnay_id){
@@ -186,8 +174,8 @@ public class MeetingService extends ServiceBase{
     }
 
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、IdeaViewのリストで返却する
-     * @param page ページ数
+     * 指定されたページ数の一覧画面に表示するデータを取得し、TodoViewのリストで返却する
+     * @param m 会議インスタンス
      * @return 表示するデータのリスト
      */
     public List<TodoView> getTodos(Meeting m){
@@ -198,35 +186,10 @@ public class MeetingService extends ServiceBase{
         return TodoConverter.toViewList(todos);
     }
 
-//    /**
-//     * TODOデータを削除する
-//     * @param w DBに登録された募集の登録内容
-//     */
-//    public void destroyTodo(Todo t) {
-//        em.getTransaction().begin();
-//        t = em.merge(t);
-//        em.remove(t);       // データ削除
-//        em.getTransaction().commit();
-//        em.close();
-//    }
-//    /**
-//     * TODOデータを削除する
-//     * @param w DBに登録された募集の登録内容
-//     */
-//    public void destroyTodo(List<TodoView> tv) {
-//        for(int j = 0; j < tv.size(); j++) {
-//            Todo t = TodoConverter.toModel(tv.get(j));
-//            em.getTransaction().begin();
-//            t = em.merge(t);
-//            em.remove(t);       // データ削除
-//            em.getTransaction().commit();
-//        }
-////        em.close();
-//    }
-
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
+     * 指定されたページ数の一覧画面に表示するデータを取得し、TaskViewのリストで返却する
      * @param page ページ数
+     * @param t チームインスタンス
      * @return 表示するデータのリスト
      */
     public List<TaskView> getPerPageByTeam(int page, Team t){

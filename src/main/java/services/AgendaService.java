@@ -11,32 +11,12 @@ import models.Agenda;
 import models.Meeting;
 import models.validators.AgendaValidator;
 
-///**
-// * 議題テーブルの操作に関わる処理を行うクラス
-// */
-//public class ProjectService extends ServiceBase{
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<WantView> getPerPage(int page, int team, LocalDate today){
-//        List<Project> Projects = em.createNamedQuery(JpaConst.Q_WAN_GET_ALL, Project.class)
-//                .setParameter(JpaConst.JPQL_PARM_TEAM, team)
-//                .setParameter(JpaConst.JPQL_PARM_TODAY, today)
-//                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
-//                .setMaxResults(JpaConst.ROW_PER_PAGE)
-//                .getResultList();
-//
-//        return ProjectConverter.toViewList(Projects);
-//    }
-
 /**
  * 議題テーブルの操作に関わる処理を行うクラス
  */
 public class AgendaService extends ServiceBase{
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
+     * 指定されたページ数の一覧画面に表示するデータを取得し、AgendaViewのリストで返却する
      * @param page ページ数
      * @return 表示するデータのリスト
      */
@@ -51,22 +31,8 @@ public class AgendaService extends ServiceBase{
         return AgendaConverter.toViewList(agendas);
     }
 
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<AgendaView> getAgenda(){
-//        List<Meeting> meetings = em.createNamedQuery(JpaConst.Q_MEE_GET_ALL, Meeting.class)
-//                .getResultList();
-//
-//        return MeetingConverter.toViewList(meetings);
-//    }
-
     /**
-
-    /**
-     * idを条件に取得したデータをWantViewのインスタンスで返却する
+     * idを条件に取得したデータをAgendaViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -76,7 +42,7 @@ public class AgendaService extends ServiceBase{
     }
 
     /**
-     * team_idを条件に取得したデータをMeetingViewのインスタンスで返却する
+     * meeting_idを条件に取得したデータをMeetingViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -86,8 +52,8 @@ public class AgendaService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力された議題の登録内容を元にデータを1件作成し、議題テーブルに登録する
+     * @param av 画面から入力された議題の登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(AgendaView av){
@@ -107,8 +73,8 @@ public class AgendaService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力された議題の更新内容を元にデータを1件作成し、議題テーブルを更新する
+     * @param av 画面から入力された募集の登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(AgendaView av){
@@ -147,7 +113,7 @@ public class AgendaService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Agendaのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -158,7 +124,7 @@ public class AgendaService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件にチームデータを1件取得し、Meetingのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -170,7 +136,6 @@ public class AgendaService extends ServiceBase{
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-     * @param page ページ数
      * @return 表示するデータのリスト
      */
     public List<MeetingView> getMeeting(){

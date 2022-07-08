@@ -23,7 +23,7 @@ import models.Want;
 import services.WantService;
 
 /**
- * 従業員に関わる処理を行うActionクラス
+ * 募集に関わる処理を行うActionクラス
  *
  */
 public class WantAction extends ActionBase{
@@ -73,11 +73,11 @@ public class WantAction extends ActionBase{
      * @throws IOException
      */
     public void index_meeting() throws ServletException, IOException{
-        //該当の会議のIDからModelを取得
+        //該当の会議のIDから会議情報を取得
         int meeting_id = toNumber(getRequestParam(AttributeConst.MET_ID));
         Meeting m = MeetingConverter.toModel(service.findOneMeeting(meeting_id));
 
-        //指定されたページ数の一覧画面に表示するデータを取得
+        //指定されたページ数の一覧画面に表示する募集データを取得
         int page = getPage();
         List<WantView> wants = service.getPerPageByMeeting(page, m);
 
@@ -148,7 +148,7 @@ public class WantAction extends ActionBase{
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.WANT, wv);//入力された日報情報
+                putRequestScope(AttributeConst.WANT, wv);//入力された募集情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
@@ -166,6 +166,11 @@ public class WantAction extends ActionBase{
         }
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException{
 
         //idを条件に募集データを取得する
@@ -174,12 +179,11 @@ public class WantAction extends ActionBase{
         //セッションからログイン中の従業員情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-        //DBから全チームを取得
+        //DBから全会議を取得
         List<MeetingView> meetings = service.getMeeting();
 
         if (wv == null) {
-            //該当の募集データが存在しない、または
-            //ログインしている従業員が募集の作成者でない場合はエラー画面を表示 ★後で追加する必要ある
+            //該当の募集データが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
@@ -194,6 +198,11 @@ public class WantAction extends ActionBase{
         forward(ForwardConst.FW_WAN_EDIT);
     }
 
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void update() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
@@ -217,7 +226,7 @@ public class WantAction extends ActionBase{
                 //更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.WANT, wv); //入力された日報情報
+                putRequestScope(AttributeConst.WANT, wv); //入力された募集情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示
@@ -286,7 +295,7 @@ public class WantAction extends ActionBase{
         //idを条件に募集データを取得する
         WantView wv = service.findOne(toNumber(getRequestParam(AttributeConst.WAN_ID)));
 
-        //募集idを条件に、回答を取得する
+        //募集idを条件に、アイデアを取得する
         List<IdeaView> ideas = service.getIdeas(WantConverter.toModel(wv));
 
         if (wv == null) {
@@ -297,8 +306,8 @@ public class WantAction extends ActionBase{
         }
 
         putRequestScope(AttributeConst.WANT, wv); //取得した募集情報
-        putRequestScope(AttributeConst.IDEAS, ideas); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.IDEAS, ideas); //取得したアイデア情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
         //詳細画面を表示
         forward(ForwardConst.FW_WAN_SHOW);

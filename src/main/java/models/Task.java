@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 募集データのDTOモデル
+ * プロジェクトデータのDTOモデル
  *
  */
 @Table(name = JpaConst.TABLE_TAS)

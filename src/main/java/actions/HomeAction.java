@@ -13,7 +13,7 @@ import constants.JpaConst;
 import services.WantService;
 
 /**
- * 従業員に関わる処理を行うActionクラス
+ * ホーム画面に関わる処理を行うActionクラス
  *
  */
 public class HomeAction extends ActionBase{
@@ -44,13 +44,8 @@ public class HomeAction extends ActionBase{
         //今日の日付を取得
         LocalDate today = LocalDate.now();
 
-        //セッションからログイン中の従業員情報を取得 ★ログイン機能を付けてから
-//        EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-//        int team_id = loginEmployee.getTeam().getId();
-
-//      List<WantView> Projects = service.getPerPage(page, team_id, today);
+        //募集情報を取得
         List<WantView> wants = service.getPerPage(page);
-
 
         putRequestScope(AttributeConst.WANTS, wants); //取得した募集データ
         putRequestScope(AttributeConst.PAGE, page); //ページ数

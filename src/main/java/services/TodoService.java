@@ -22,7 +22,7 @@ public class TodoService extends ServiceBase{
 
     /**
      * 一覧画面に表示する自分のチームのTODOデータを取得し、TodoViewのリストで返却する
-     * @param page ページ数
+     * @param t チームインスタンス
      * @return 表示するデータのリスト
      */
     public List<TodoView> getTodos(Team t){
@@ -35,7 +35,7 @@ public class TodoService extends ServiceBase{
 
     /**
      * 一覧画面に表示する自分のTODOデータを取得し、TodoViewのリストで返却する
-     * @param page ページ数
+     * @param e 従業員インスタンス
      * @return 表示するデータのリスト
      */
     public List<TodoView> getTodosMine(Employee e){
@@ -48,7 +48,7 @@ public class TodoService extends ServiceBase{
 
     /**
      * 一覧画面に表示する自分のTODOデータを取得し、TodoViewのリストで返却する
-     * @param page ページ数
+     * @param m 会議インスタンス
      * @return 表示するデータのリスト
      */
     public List<TodoView> getTodosMeeting(Meeting m){
@@ -90,7 +90,7 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * team_idを条件に取得したデータをMeetingViewのインスタンスで返却する
+     * team_idを条件に取得したデータをTeamのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -100,8 +100,8 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力されたTODOの登録内容を元にデータを1件作成し、TODOテーブルに登録する
+     * @param tv 画面から入力されたTODOの登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(TodoView tv){
@@ -121,12 +121,12 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力されたTODOの更新内容を元にデータを1件作成し、TODOテーブルを更新する
+     * @param tv 画面から入力されたTODOの登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(TodoView tv){
-        //idを条件に登録済みの従業員情報を取得する
+        //idを条件に登録済みのTODO情報を取得する
         TodoView savedTod = findOne(tv.getId());
 
         savedTod.setEmployee(tv.getEmployee());
@@ -153,8 +153,8 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * 募集データを削除する
-     * @param w DBに登録された募集の登録内容
+     * TODOデータを削除する
+     * @param t DBに登録されたTODOの登録内容
      */
     public void destroy(Todo t) {
         em.getTransaction().begin();
@@ -165,7 +165,7 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Todoのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -187,7 +187,7 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件に会議データを1件取得し、Meetingのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -199,7 +199,6 @@ public class TodoService extends ServiceBase{
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-     * @param page ページ数
      * @return 表示するデータのリスト
      */
     public List<MeetingView> getMeeting(){
@@ -210,8 +209,8 @@ public class TodoService extends ServiceBase{
     }
 
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-     * @param page ページ数
+     * 指定されたページ数の一覧画面に表示するデータを取得し、EmployeeViewのリストで返却する
+     * @param team チームインスタンス
      * @return 表示するデータのリスト
      */
     public List<EmployeeView> getEmployee(Team team){

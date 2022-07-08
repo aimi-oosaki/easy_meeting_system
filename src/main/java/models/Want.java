@@ -73,6 +73,9 @@ public class Want {
     @Column(name = JpaConst.WAN_COL_CONTENT, length = 250, nullable = false)
     private String content;
 
+    /**
+     * 募集期限
+     */
     @Column(name = JpaConst.WAN_COL_DUE_DATE, nullable = false)
     private LocalDate due_date;
 }

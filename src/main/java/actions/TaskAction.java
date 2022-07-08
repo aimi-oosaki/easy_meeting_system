@@ -18,7 +18,7 @@ import models.Team;
 import services.TaskService;
 
 /**
- * 従業員に関わる処理を行うActionクラス
+ * プロジェクトに関わる処理を行うActionクラス
  *
  */
 public class TaskAction extends ActionBase{
@@ -53,8 +53,8 @@ public class TaskAction extends ActionBase{
         int page = getPage();
         List<TaskView> tasks = service.getPerPageByTeam(page, t);
 
-        putRequestScope(AttributeConst.EMPLOYEE, ev); //取得した募集データ
-        putRequestScope(AttributeConst.TASKS, tasks); //取得した募集データ
+        putRequestScope(AttributeConst.EMPLOYEE, ev); //取得した従業員データ
+        putRequestScope(AttributeConst.TASKS, tasks); //取得したプロジェクトデータ
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
@@ -77,7 +77,7 @@ public class TaskAction extends ActionBase{
      */
     public void entryNew() throws ServletException, IOException {
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-        putRequestScope(AttributeConst.TASK, new TaskView()); //空の募集インスタンス
+        putRequestScope(AttributeConst.TASK, new TaskView()); //空のプロジェクトインスタンス
 
         //セッションからログイン中の従業員情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
@@ -87,12 +87,7 @@ public class TaskAction extends ActionBase{
 
         //DBから同じチームのメンバー情報を取得
         List<EmployeeView> employees = service.getTeamMember(t);
-        putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員データ
-
-//        //会議データを取得する
-//        List<MeetingView> meetings = service.getMeeting();
-//
-//        putRequestScope(AttributeConst.MEETINGS, meetings); //全会議データ
+        putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員（チームメンバー）データ
 
         //新規登録画面を表示
         forward(ForwardConst.FW_TAS_NEW);
@@ -105,11 +100,7 @@ public class TaskAction extends ActionBase{
      */
     public void create() throws ServletException, IOException {
         if(checkToken()) {
-
-//            //セッションからログイン中の従業員情報を取得
-//            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-
-            // 入力内容から従業員データを取得
+            //入力内容から従業員データを取得
             EmployeeView ev = service.findOneEmployee(toNumber(getRequestParam(AttributeConst.EMPLOYEE)));
 
             //DBからログイン中の従業員が所属するチーム情報を取得
@@ -119,21 +110,21 @@ public class TaskAction extends ActionBase{
                     null,
                     TeamConverter.toView(t),
                     ev,
-                    getRequestParam(AttributeConst.TAS_TITLE),
-                    getRequestParam(AttributeConst.TAS_PROGRESS),
-                    getRequestParam(AttributeConst.TAS_PROBLEM),
-                    getRequestParam(AttributeConst.TAS_SOLUTION),
-                    toLocalDate(getRequestParam(AttributeConst.TAS_DUEDATE)),
+                    getRequestParam(AttributeConst.TAS_TITLE), //タイトル
+                    getRequestParam(AttributeConst.TAS_PROGRESS),//進捗
+                    getRequestParam(AttributeConst.TAS_PROBLEM),//問題点
+                    getRequestParam(AttributeConst.TAS_SOLUTION),//解決策
+                    toLocalDate(getRequestParam(AttributeConst.TAS_DUEDATE)),//プロジェクト終了日
                     0);
 
-            //募集情報登録
+            //プロジェクト情報登録
             List<String> errors = service.create(tv);
 
             if (errors.size() > 0) {
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.TASK, tv);//入力された日報情報
+                putRequestScope(AttributeConst.TASK, tv);//入力されたプロジェクト情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
@@ -151,8 +142,13 @@ public class TaskAction extends ActionBase{
         }
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException{
-        //idを条件に募集データを取得する
+        //idを条件にプロジェクトデータを取得する
         TaskView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TAS_ID)));
 
         //セッションからログイン中の従業員情報を取得
@@ -166,12 +162,9 @@ public class TaskAction extends ActionBase{
         putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員データ
 
         if (tv == null) {
-            //該当の募集データが存在しない、または
-            //ログインしている従業員が募集の作成者でない場合はエラー画面を表示 ★後で追加する必要ある
+            //該当のプロジェクトデータが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
-
         } else {
-
             putRequestScope(AttributeConst.TOKEN, getTokenId());
             putRequestScope(AttributeConst.TASK, tv);
             putRequestScope(AttributeConst.EMPLOYEE, ev);
@@ -181,16 +174,21 @@ public class TaskAction extends ActionBase{
         forward(ForwardConst.FW_TAS_EDIT);
     }
 
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void update() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
-            //idを条件に募集データを取得する
+            //idを条件にプロジェクトデータを取得する
             TaskView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TAS_ID)));
 
             // 入力内容から従業員データを取得
             EmployeeView ev = service.findOneEmployee(toNumber(getRequestParam(AttributeConst.EMPLOYEE)));
 
-            //入力された募集内容を設定する
+            //入力されたプロジェクト内容を設定する
             tv.setEmployee(ev);
             tv.setDue_date(toLocalDate(getRequestParam(AttributeConst.TAS_DUEDATE)));
             tv.setTitle(getRequestParam(AttributeConst.TAS_TITLE));
@@ -199,17 +197,15 @@ public class TaskAction extends ActionBase{
             tv.setSolution(getRequestParam(AttributeConst.TAS_SOLUTION));
             tv.setStatus(toNumber(getRequestParam(AttributeConst.TAS_STATUS)));
 
-            //募集データを更新する
+            //プロジェクトデータを更新する
             List<String> errors = service.update(tv);
 
 
             if (errors.size() > 0) {
                 //更新中にエラーが発生した場合
-
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.TASK, tv); //入力された日報情報
+                putRequestScope(AttributeConst.TASK, tv); //入力されたプロジェクト情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
-
                 //編集画面を再表示
                 forward(ForwardConst.FW_TAS_EDIT);
             } else {
@@ -253,7 +249,7 @@ public class TaskAction extends ActionBase{
      * @throws IOException
      */
     public void show() throws ServletException, IOException {
-        //idを条件に募集データを取得する
+        //idを条件にプロジェクトデータを取得する
         TaskView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TAS_ID)));
 
         if (tv == null) {
@@ -263,8 +259,8 @@ public class TaskAction extends ActionBase{
             return;
         }
 
-        putRequestScope(AttributeConst.TASK, tv); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.TASK, tv); //取得したプロジェクト情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
         //詳細画面を表示
         forward(ForwardConst.FW_TAS_SHOW);

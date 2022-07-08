@@ -20,7 +20,7 @@ public class AgendaView {
     private Integer id;
 
     /**
-     * アイデア募集中の会議
+     * 議題の会議
      */
     private MeetingView meeting;
 

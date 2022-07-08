@@ -11,8 +11,8 @@ import models.Team;
 public class TeamConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param tv TeamViewのインスタンス
+     * @return Teamのインスタンス
      */
     public static Team toModel(TeamView tv) {
         return new Team(
@@ -24,8 +24,8 @@ public class TeamConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param t Teamのインスタンス
+     * @return TeamViewのインスタンス
      */
     public static TeamView toView(Team t) {
         if(t == null) {
@@ -55,8 +55,8 @@ public class TeamConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param t DTOモデル(コピー先)
+     * @param tv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Team t, TeamView tv) {
         t.setId(tv.getId());

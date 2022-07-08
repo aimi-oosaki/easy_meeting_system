@@ -17,10 +17,6 @@
         <title>ジタン会議</title>
         <link rel="stylesheet" href="<c:url value='/css/reset.css' />">
         <link rel="stylesheet" href="<c:url value='/css/style.css' />">
-<!--         BootstrapのCSS読み込み -->
-<!--         <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-<!--         jQuery読み込み -->
-<!--         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     </head>
     <body>
     <div class="signup_wrapper">

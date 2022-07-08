@@ -59,8 +59,6 @@
             </table>
         </div>
         <br /><br />
-<%--         <input class= "mee-btn-left"type="button" onclick="location.href='<c:url value='?action=${actMee}&command=${commIndex}' />'" value="一覧へ戻る"> --%>
-<%--         <input class= "mee-btn-right" type="button" onclick="location.href='<c:url value='?action=${actMee}&command=${commProb2}&meeting_id=${meeting.id}' />'" value="次へ"> --%>
     </div>
     </c:param>
 </c:import>
@@ -82,5 +80,4 @@ function formSwitch() {
       }
     }
 }
-
 </script>

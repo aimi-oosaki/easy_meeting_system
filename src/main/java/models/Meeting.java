@@ -64,6 +64,9 @@ public class Meeting {
     @Column(name = JpaConst.MEE_COL_DATE, nullable = false)
     private LocalDate date;
 
+    /**
+     * 削除フラグ
+     */
     @Column(name = JpaConst.MEE_COL_DELETE_FLAG, nullable = false)
     private Integer delete_flag;
 }

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 募集情報について画面の入力値・出力値を扱うViewモデル
+ * TODO情報について画面の入力値・出力値を扱うViewモデル
  *
  */
 @Getter
@@ -42,7 +42,7 @@ public class TodoView {
     private String what;
 
     /**
-     * 締切日
+     * いつまでに
      */
     private LocalDate deadline;
 

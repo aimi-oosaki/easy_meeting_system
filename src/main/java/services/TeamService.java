@@ -9,12 +9,13 @@ import models.Team;
 import models.validators.TeamValidator;
 
 /**
- * 従業員テーブルの操作に関わる処理を行うクラス
+ * チームテーブルの操作に関わる処理を行うクラス
  */
 public class TeamService extends ServiceBase{
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、TeamViewのリストで返却する
      * @param page ページ数
+     * @param company_id 会社ID
      * @return 表示するデータのリスト
      */
     public List<TeamView> getPerPage(int page, Integer company_id){
@@ -28,7 +29,7 @@ public class TeamService extends ServiceBase{
     }
 
     /**
-     * idを条件に取得したデータをWantViewのインスタンスで返却する
+     * idを条件に取得したデータをTeamViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -38,8 +39,8 @@ public class TeamService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力されたチームの登録内容を元にデータを1件作成し、チームテーブルに登録する
+     * @param tv 画面から入力されたチームの登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(TeamView tv){
@@ -59,12 +60,12 @@ public class TeamService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力されたチームの更新内容を元にデータを1件作成し、チームテーブルを更新する
+     * @param tv 画面から入力されたチームの登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(TeamView tv){
-        //idを条件に登録済みの従業員情報を取得する
+        //idを条件に登録済みのチーム情報を取得する
         TeamView savedTea = findOne(tv.getId());
 
         savedTea.setName(tv.getName());
@@ -86,11 +87,11 @@ public class TeamService extends ServiceBase{
     }
 
     /**
-     * 募集データを削除する
-     * @param w DBに登録された募集の登録内容
+     * チームデータを削除する
+     * @param id チームID
      */
     public void destroy(Integer id) {
-        //idを条件に登録済みの従業員情報を取得する
+        //idを条件に登録済みのチーム情報を取得する
         TeamView savedTeam = findOne(id);
 
         //論理削除フラグをたてる
@@ -101,8 +102,8 @@ public class TeamService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
-     * @param id
+     * idを条件にデータを1件取得し、Teamのインスタンスで返却する
+     * @param id Team
      * @return 取得データのインスタンス
      */
     private Team findOneInternal(int id) {

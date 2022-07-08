@@ -18,8 +18,9 @@ import models.validators.TaskValidator;
  */
 public class TaskService extends ServiceBase{
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
+     * 指定されたページ数の一覧画面に表示するデータを取得し、TaskViewのリストで返却する
      * @param page ページ数
+     * @param t チームインスタンス
      * @return 表示するデータのリスト
      */
     public List<TaskView> getPerPageByTeam(int page, Team t){
@@ -34,8 +35,9 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
+     * 指定されたページ数の一覧画面に表示するデータを取得し、TaskViewのリストで返却する
      * @param page ページ数
+     * @param e 従業員インスタンス
      * @return 表示するデータのリスト
      */
     public List<TaskView> getPerPageByMeeting(int page, Employee e){
@@ -51,7 +53,7 @@ public class TaskService extends ServiceBase{
 
     /**
      * EmployeeViewのリストで返却する
-     * @param ログイン中の従業員のTeamView
+     * @param t ログイン中の従業員のチームインスタンス
      * @return 表示するデータのリスト
      */
     public List<EmployeeView> getTeamMember(Team t){
@@ -61,33 +63,6 @@ public class TaskService extends ServiceBase{
 
         return EmployeeConverter.toViewList(emps);
     }
-
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<MeetingView> getMeeting(){
-//        List<Meeting> meetings = em.createNamedQuery(JpaConst.Q_MEE_GET_ALL, Meeting.class)
-//                .getResultList();
-//
-//        return MeetingConverter.toViewList(meetings);
-//    }
-
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、IdeaViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<IdeaView> getIdeas(Want w){
-//        List<Idea> ideas = em.createNamedQuery(JpaConst.Q_IDE_GET_ALL, Idea.class)
-//                .setParameter(JpaConst.JPQL_PARM_WANT, w)
-//                .getResultList();
-//
-//        return IdeaConverter.toViewList(ideas);
-//    }
-
-    /**
 
     /**
      * idを条件に取得したデータをTaskViewのインスタンスで返却する
@@ -100,7 +75,7 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * team_idを条件に取得したデータをTeamViewのインスタンスで返却する
+     * team_idを条件に取得したデータをTeamのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -110,7 +85,7 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * team_idを条件に取得したデータをMeetingViewのインスタンスで返却する
+     * employee_idを条件に取得したデータをEmployeeViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -120,8 +95,8 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力されたタスクの登録内容を元にデータを1件作成し、タスクテーブルに登録する
+     * @param tv 画面から入力されたプロジェクトの登録内容
      * @return バリデーションや登録処理中に発生したエラーのリスト
      */
     public List<String> create(TaskView tv){
@@ -141,12 +116,12 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力された募集の更新内容を元にデータを1件作成し、タスクテーブルを更新する
+     * @param tv 画面から入力されたタスクの登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(TaskView tv){
-        //idを条件に登録済みの従業員情報を取得する
+        //idを条件に登録済みのタスク情報を取得する
         TaskView savedTas = findOne(tv.getId());
 
         savedTas.setEmployee(tv.getEmployee());
@@ -174,7 +149,7 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * 募集データを削除する
+     * タスクデータを削除する
      * @param w DBに登録された募集の登録内容
      */
     public void destroy(Task t) {
@@ -185,20 +160,8 @@ public class TaskService extends ServiceBase{
         em.close();
     }
 
-//    /**
-//     * 募集データを削除する
-//     * @param w DBに登録された募集の登録内容
-//     */
-//    public void destroyIdea(Idea i) {
-//        em.getTransaction().begin();
-////        i = em.merge(i);
-//        em.remove(i);       // データ削除
-//        em.getTransaction().commit();
-//        em.close();
-//    }
-
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Taskのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -210,7 +173,7 @@ public class TaskService extends ServiceBase{
 
     /**
      * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
-     * @param id
+     * @param id チームID
      * @return 取得データのインスタンス
      */
     private Team findOneInternalTeam(int id) {
@@ -220,8 +183,8 @@ public class TaskService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
-     * @param id
+     * idを条件にチームデータを1件取得し、Employeeのインスタンスで返却する
+     * @param id 従業員ID
      * @return 取得データのインスタンス
      */
     private Employee findOneInternalEmployee(int id) {

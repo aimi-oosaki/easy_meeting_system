@@ -18,7 +18,7 @@
 
 <!-- JavaScript -->
 <script>
-    document.onmousemove = snapNote; //Snap selected note to the mouse whenever the mouse moves
+    document.onmousemove = snapNote; //マウスが動いた時は、選択された付箋をマウスの位置まで動かす
     document.ontouchmove = snapNoteTouch; //Logic for snapping to touch is slightly different than mouse
     document.onmouseup = placeNote; //When the mouse comes up, place the selected note where the user chose
     document.ontouchend = placeNote; //When the touch is released, place the note
@@ -61,56 +61,55 @@
 
         note.id = ++notesCount;
 
-        document.body.appendChild(note); //Add the note to the document
+        document.body.appendChild(note); //付箋を追加
 
-        titleInput.focus(); //Set focus to the title of the new note
+        titleInput.focus(); //新しい付箋のタイトルにフォーカスをセット
     }
 
-    let selectedNote = null; //The note the user clicks on to move around
+    let selectedNote = null; //動かすためにユーザがクリックした付箋
 
     /**
-     * selectNote sets the selected note to the one the user clicks on.
+     * selectNote sets the selected note to the one the user clicks on.選択した付箋をユーザがクリックした付箋にセットする
      */
     function selectNote() {
         selectedNote = this;
     }
 
-    let noteCopy = {}; // A copy of the note that is what will actually be moved
-    let mouseDidMove = false; // Whether or not the mouse has moved enough to constitute moving the note
-    let currentSwap = null; // The note most recently swapped with the selected note
+    let noteCopy = {}; //実際に動かされた付箋のコピー
+    let mouseDidMove = false; // マウスが付箋を動かすくらい動いたかどうか
+    let currentSwap = null; //直近に選択された付箋と交換された付箋
 
     /**
-     * snapNote snaps the selected note to the mouse position and swaps
-     * notes when the user hovers the selected note over another note.
-     * @param {MouseEvent} event
+     * 選択された付箋をマウスの位置に動かし、選択された付箋が他の付箋の上を通った時、付箋を交換する
+     * @param event マウスイベント
      */
     function snapNote(event) {
         if (selectedNote !== null) {
-            // Check that there is a selected note
+            //選択された付箋があるか確認する
 
-            let mouseMovement = Math.sqrt(event.movementX ** 2 + event.movementY ** 2); // The total distance the mouse moved
+            let mouseMovement = Math.sqrt(event.movementX ** 2 + event.movementY ** 2); // マウスが動いた合計距離
 
             if (!mouseDidMove && mouseMovement > 4) {
-                // Check that the mouse has moved a reasonable distance
+                // マウスが一定の距離を動いたか確認する
 
                 console.log('Mouse moved');
 
-                selectedNote.style.visibility = 'hidden'; // Hide the actual selected note
+                selectedNote.style.visibility = 'hidden'; // 実際に選択された付箋を隠す
 
                 currentSwap = selectedNote;
 
-                noteCopy = copyNote(selectedNote); // Make a copy of the selected note to move around
+                noteCopy = copyNote(selectedNote); //動かすための付箋のコピーを作成する
                 noteCopy.style.position = 'fixed';
 
-                document.body.appendChild(noteCopy); // Add the copy to the document
+                document.body.appendChild(noteCopy); //コピーの付箋を追加する
 
-                //Snap the note to the mouse position
+                //選択された付箋をマウスの位置に動かす
                 noteCopy.style.top = event.clientY - noteCopy.offsetHeight / 2 + 'px';
                 noteCopy.style.left = event.clientX - noteCopy.offsetWidth / 2 + 'px';
 
                 mouseDidMove = true;
             } else if (mouseDidMove) {
-                // Snap note to the mouse position
+                //選択された付箋をマウスの位置に動かす
                 noteCopy.style.top = event.clientY - noteCopy.offsetHeight / 2 + 'px';
                 noteCopy.style.left = event.clientX - noteCopy.offsetWidth / 2 + 'px';
 
@@ -118,29 +117,28 @@
 
                 for (let i = 0; i < notes.length; i++) {
                     // Loop through the notes
-
                     let rect = notes[i].getBoundingClientRect(); // Get the bounding rectangle to know the positon of the note
 
-                    // Swap the notes if appropriate
+                    //付箋をつかむ
                     if (
                         currentSwap !== null &&
                         !noteCopy.id.includes(notes[i].id) &&
                         notes[i].id !== currentSwap.id
                     ) {
-                        // Make sure the note is a different note
+                        //付箋が異なる付箋か確認する
                         if (
                             event.clientX > rect.left &&
                             event.clientX < rect.right &&
                             event.clientY > rect.top &&
                             event.clientY < rect.bottom
                         ) {
-                            // Check if the mouse is over this note
+                            //マウスが該当の付箋の上にあるか確認する
                             if (notes[i].style.position !== 'fixed') {
-                                // Check if note is being animated
+                                // Check if note is being animated付箋がアニメーション化されているか確認する
                                 console.log('Selected: ' + noteCopy.id);
                                 console.log('Swap with: ' + notes[i].id);
 
-                                // Gather old notes positions for animating swap
+                                //動かす前の付箋の位置を、付箋の位置交換のために取得する
                                 let oldRects = new Map(); //Map for old note positions for animating
                                 for (let i = 0; i < notes.length; i++) {
                                     if (!notes[i].id.includes('copy')) {
@@ -149,14 +147,14 @@
                                     }
                                 }
 
-                                currentSwap.style.visibility = 'visible'; // Make the old swap visible
-                                checkOverflow(currentSwap.children[1]); // Resize the text box if necessary
+                                currentSwap.style.visibility = 'visible'; //古い付箋を表示させる
+                                checkOverflow(currentSwap.children[1]); //必要であれば付箋のサイズを変更
 
-                                swapNotes(selectedNote, currentSwap); //Undo previous swap
-                                currentSwap = notes[i]; //Update currentSwap
-                                swapNotes(selectedNote, currentSwap); //Perform new swap
+                                swapNotes(selectedNote, currentSwap); //全回の位置交換を元に戻す
+                                currentSwap = notes[i]; //currentSwapを更新
+                                swapNotes(selectedNote, currentSwap); //新しい交換を実行
 
-                                currentSwap.style.visibility = 'hidden'; //Hide the new swap
+                                currentSwap.style.visibility = 'hidden'; //新しい交換を隠す
 
                                 animateReorder(oldRects, 300);
                             }
@@ -168,27 +166,26 @@
     } //End snapNote
 
     /**
-     * snapNoteTouch snaps the selected note to the touch position and swaps
-     * notes when the user hovers the selected note over another note.
-     * @param {TouchEvent} event
+     * 選択された付箋をタッチした位置まで動かし、ユーザが他の付箋を飛び越えた時付箋を交換する
+     * @param event タッチイベント
      */
     function snapNoteTouch(event) {
         if (selectNote !== null) {
             if (!mouseDidMove) {
-                // Check that the mouse has moved a reasonable distance
+                // マウスが一定の距離を動いたか確認する
 
                 console.log('Mouse moved');
 
-                selectedNote.style.visibility = 'hidden'; // Hide the actual selected note
+                selectedNote.style.visibility = 'hidden'; // 実際に選択された付箋を隠す
 
                 currentSwap = selectedNote;
 
-                noteCopy = copyNote(selectedNote); // Make a copy of the selected note to move around
+                noteCopy = copyNote(selectedNote); //動かすための付箋のコピーを作成する
                 noteCopy.style.position = 'fixed';
 
-                document.body.appendChild(noteCopy); // Add the copy to the document
+                document.body.appendChild(noteCopy); //コピーの付箋を追加する
 
-                //Snap the note to the mouse position
+                //選択された付箋をマウスの位置に動かす
                 noteCopy.style.top =
                     event.touches[0].clientY - noteCopy.offsetHeight / 2 + 'px';
                 noteCopy.style.left =
@@ -196,38 +193,38 @@
 
                 mouseDidMove = true;
             } else if (mouseDidMove) {
-                // Snap note to the mouse position
+                //選択された付箋をマウスの位置に動かす
                 noteCopy.style.top =
                     event.touches[0].clientY - noteCopy.offsetHeight / 2 + 'px';
                 noteCopy.style.left =
                     event.touches[0].clientX - noteCopy.offsetWidth / 2 + 'px';
 
-                let notes = document.getElementsByClassName('note'); // Get all the notes in the document
+                let notes = document.getElementsByClassName('note'); //すべての付箋を取得する
 
                 for (let i = 0; i < notes.length; i++) {
                     // Loop through the notes
 
-                    let rect = notes[i].getBoundingClientRect(); // Get the bounding rectangle to know the positon of the note
+                    let rect = notes[i].getBoundingClientRect(); // Get the bounding rectangle to know the positon of the noteその付箋の位置を知るために
 
-                    // Swap the notes if appropriate
+                    //付箋を交換する
                     if (
                         currentSwap !== null &&
                         !noteCopy.id.includes(notes[i].id) &&
                         notes[i].id !== currentSwap.id
                     ) {
-                        // Make sure the note is a different note
+                        //付箋が異なる付箋か確認する
                         if (
                             event.touches[0].clientX > rect.left &&
                             event.touches[0].clientX < rect.right &&
                             event.touches[0].clientY > rect.top &&
                             event.touches[0].clientY < rect.bottom
                         ) {
-                            // Check if the mouse is over this note
+                            //マウスが該当の付箋の上にあるか確認する
                             if (notes[i].style.position !== 'fixed') {
                                 console.log('Selected: ' + noteCopy.id);
                                 console.log('Swap with: ' + notes[i].id);
 
-                                // Gather old notes positions for animating swap
+                                //動かす前の付箋の位置を、付箋の位置交換のために取得する
                                 let oldRects = new Map(); //Map for old note positions for animating
                                 for (let i = 0; i < notes.length; i++) {
                                     if (!notes[i].id.includes('copy')) {
@@ -236,14 +233,14 @@
                                     }
                                 }
 
-                                currentSwap.style.visibility = 'visible'; // Make the old swap visible
-                                checkOverflow(currentSwap.children[1]); // Resize the text box if necessary
+                                currentSwap.style.visibility = 'visible'; //元の付箋を表示する
+                                checkOverflow(currentSwap.children[1]); //テキストボックスのサイズを変更うｓる
 
-                                swapNotes(selectedNote, currentSwap); //Undo previous swap
-                                currentSwap = notes[i]; //Update currentSwap
-                                swapNotes(selectedNote, currentSwap); //Perform new swap
+                                swapNotes(selectedNote, currentSwap); //交換を元に戻す
+                                currentSwap = notes[i]; //currentSwapを更新する
+                                swapNotes(selectedNote, currentSwap); //新しい交換を実行する
 
-                                currentSwap.style.visibility = 'hidden'; //Hide the new swap
+                                currentSwap.style.visibility = 'hidden'; //新しい交換を隠す
 
                                 animateReorder(oldRects, 300);
                             }
@@ -255,12 +252,11 @@
     } //End snapNoteTouch
 
     /**
-     * placeNote places the selected note down in the proper location.
+     * 選択された付箋を適切な位置に置く
      */
     function placeNote() {
         if (selectedNote !== null) {
-            //Check if there is a note selected
-
+            //選択された付箋があるか確認する
             selectedNote.style.visibility = 'visible';
             checkOverflow(selectedNote.children[1]);
             selectedNote = null;
@@ -279,26 +275,26 @@
     }
 
     /**
-     * swapNotes swaps the content and appropriate properties of each note.
-     * @param {HTMLDivElement} note1 The first note to swap
-     * @param {HTMLDivElement} note2 The second note to swap
+     * それぞれの付箋の内容とプロパティを交換する
+     * @param {HTMLDivElement} note1 The 交換対象の１つめの付箋
+     * @param {HTMLDivElement} note2 交換対象の２つめの付箋
      */
     function swapNotes(note1, note2) {
-        //Save note1 values
+        //1つめの付箋の値を保存
         let title1 = note1.children[0].value;
         let content1 = note1.children[1].value;
         let id1 = note1.id;
         let height1 = note1.children[1].style.height;
         let color1 = note1.style.backgroundColor;
 
-        //Update note1 values
+        //1つめの付箋の値を更新
         note1.children[0].value = note2.children[0].value;
         note1.children[1].value = note2.children[1].value;
         note1.children[1].style.height = note2.children[1].style.height;
         note1.id = note2.id;
         note1.style.backgroundColor = note2.style.backgroundColor;
 
-        //Update note2 values
+        //2つめの付箋の値を更新
         note2.children[0].value = title1;
         note2.children[1].value = content1;
         note2.children[1].style.height = height1;
@@ -307,9 +303,9 @@
     }
 
     /**
-     * copyNote copies the content and appropriate properties of a note and returns the copy.
+     * 内容とプロパティをコピーして、コピーを返却する
      * @param {HTMLDivElement} originalNote
-     * @returns {HTMLDivElement} The copy of the original note
+     * @returns {HTMLDivElement} 元の付箋のコピー
      */
     function copyNote(originalNote) {
         let noteCopy = document.createElement('div');
@@ -329,14 +325,14 @@
     }
 
     /**
-     * keyDown checks the overflow of note text boxes when a key is pressed.
+     * キーが押された時に付箋のテキストボックスの文字数オーバーをチェックする
      */
     function keyDown() {
         checkOverflow(this);
     }
 
     /**
-     * checkOverflow checks if a note text box needs to be resized to fit its text.
+     * 付箋のテキストボックスがテキストに合わせてサイズを変更する必要があるのかをチェックする
      * @param {HTMLTextAreaElement} textBox
      */
     function checkOverflow(textBox) {
@@ -347,7 +343,7 @@
     }
 
     /**
-     * noteMenu creates the note options menu.
+     * 付箋のオプションメニューを作成する
      */
     function noteMenu() {
         console.log('option button pressed');
@@ -362,7 +358,7 @@
         noteMenu.className = 'note-menu';
 
         let colors = [
-            // Nine different note colors
+            // 付箋の色（９色）
             'lightgoldenrodyellow',
             'lightblue',
             'lightgreen',
@@ -374,7 +370,7 @@
             'lightseagreen',
         ];
 
-        // Create nine different color buttons
+        // ９色のボタンを作成
         colors.forEach((color) => {
             let colorOption = document.createElement('button');
             colorOption.className = 'color-option';
@@ -384,7 +380,7 @@
             noteMenu.appendChild(colorOption);
         });
 
-        // Create a delete button
+        // 削除ボタンを作成
         let deleteButton = document.createElement('div');
         deleteButton.className = 'delete-note';
         deleteButton.onmousedown = () => {
@@ -403,7 +399,7 @@
     }
 
     /**
-     * setColor sets the color of a note to the color of the button pressed.
+     * 押されたボタンの色の付箋の色をセット
      */
     function setColor() {
         console.log('color button pressed');
@@ -415,7 +411,7 @@
     }
 
     /**
-     * clearMenus clears all menus that the mouse is not hovering over.
+     * マウスが載っていないすべてのメニューをクリアする
      * @param {MouseEvent} event
      */
     function clearMenus(event) {
@@ -423,13 +419,13 @@
         console.log('ClientX: ' + event.clientX);
         console.log('ClientY: ' + event.clientY);
 
-        let noteMenus = document.getElementsByClassName('note-menu'); // Get all menus
+        let noteMenus = document.getElementsByClassName('note-menu'); // すべてのメニューを取得
 
         for (let i = 0; i < noteMenus.length; i++) {
             // Loop through the menus
             let rect = noteMenus[i].getBoundingClientRect(); // Get the bounding rectangle to know the position
 
-            // If the mouse is not above the menu, then remove it
+            // マウスがメニューの上になければ取り除く
             if (
                 event.clientX < rect.left ||
                 event.clientX > rect.right ||
@@ -437,7 +433,7 @@
                 event.clientY > rect.bottom
             ) {
                 if (noteMenus[i].id == 'active') {
-                    //Remove the note only on a second click to account for clicking the option button
+                    //Remove the note only on a second click to account for clicking the option button付箋を取り除く
                     noteMenus[i].remove();
                 } else {
                     noteMenus[i].id = 'active';

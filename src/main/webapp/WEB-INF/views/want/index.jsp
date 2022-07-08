@@ -25,7 +25,6 @@
                     <br />
                     <input class="submit-btn nothing-btn" type="button" onclick="location.href='<c:url value='?action=${actWan}&command=${commNew}' />'" value="作成">
                     <br /><br />
-<%--                     <a href="<c:url value='?action=${actMee}&command=${commIndex}' />" >一覧に戻る</a> --%>
                 </div>
             </c:when>
             <c:otherwise>

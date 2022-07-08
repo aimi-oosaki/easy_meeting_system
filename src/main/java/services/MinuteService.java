@@ -17,74 +17,14 @@ import models.Meeting;
 import models.Minute;
 import models.Team;
 
-///**
-// * 従業員テーブルの操作に関わる処理を行うクラス
-// */
-//public class ProjectService extends ServiceBase{
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<WantView> getPerPage(int page, int team, LocalDate today){
-//        List<Project> Projects = em.createNamedQuery(JpaConst.Q_WAN_GET_ALL, Project.class)
-//                .setParameter(JpaConst.JPQL_PARM_TEAM, team)
-//                .setParameter(JpaConst.JPQL_PARM_TODAY, today)
-//                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
-//                .setMaxResults(JpaConst.ROW_PER_PAGE)
-//                .getResultList();
-//
-//        return ProjectConverter.toViewList(Projects);
-//    }
-
 /**
- * 従業員テーブルの操作に関わる処理を行うクラス
+ * 議事録テーブルの操作に関わる処理を行うクラス
  */
 public class MinuteService extends ServiceBase{
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<WantView> getPerPage(int page){
-//        List<Project> Projects = em.createNamedQuery(JpaConst.Q_WAN_GET_ALL, Project.class)
-//                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
-//                .setMaxResults(JpaConst.ROW_PER_PAGE)
-//                .getResultList();
-//
-//        return ProjectConverter.toViewList(Projects);
-//    }
-
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<WantView> getPerPageByMeeting(int page, Meeting m){
-//        List<Project> Projects = em.createNamedQuery(JpaConst.Q_WAN_GET_BY_MEETING, Project.class)
-//                .setParameter(JpaConst.JPQL_PARM_MEETING, m)
-//                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
-//                .setMaxResults(JpaConst.ROW_PER_PAGE)
-//                .getResultList();
-//
-//        return ProjectConverter.toViewList(Projects);
-//    }
-
-//    /**
-//     * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-//     * @param page ページ数
-//     * @return 表示するデータのリスト
-//     */
-//    public List<MeetingView> getMeeting(){
-//        List<Meeting> meetings = em.createNamedQuery(JpaConst.Q_MEE_GET_ALL, Meeting.class)
-//                .getResultList();
-//
-//        return MeetingConverter.toViewList(meetings);
-//    }
 
     /**
-     * 指定されたページ数の一覧画面に表示するデータを取得し、IdeaViewのリストで返却する
-     * @param page ページ数
+     * 指定されたページ数の一覧画面に表示するデータを取得し、AgendaViewのリストで返却する
+     * @param m 会議インスタンス
      * @return 表示するデータのリスト
      */
     public List<AgendaView> getAgendas(Meeting m){
@@ -97,9 +37,7 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-
-    /**
-     * idを条件に取得したデータをWantViewのインスタンスで返却する
+     * idを条件に取得したデータをMinuteViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -109,8 +47,8 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * idを条件に取得したデータをWantViewのインスタンスで返却する
-     * @param id
+     * idを条件に取得したデータをMinuteViewのインスタンスで返却する
+     * @param m 会議インスタンス
      * @return 取得データのインスタンス
      */
     @SuppressWarnings("finally")
@@ -128,7 +66,7 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * idを条件に取得したデータをWantViewのインスタンスで返却する
+     * idを条件に取得したデータをAgendaViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -138,7 +76,7 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * meeting_idを条件に取得したデータをMeetingViewのインスタンスで返却する
+     * employee_idを条件に取得したデータをEmployeeViewのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -175,9 +113,8 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の登録内容を元にデータを1件作成し、募集テーブルに登録する
-     * @param wv 画面から入力された募集の登録内容
-     * @return バリデーションや登録処理中に発生したエラーのリスト
+     * 画面から入力された議事録の登録内容を元にデータを1件作成し、議事録テーブルに登録する
+     * @param mv 画面から入力された議事録の登録内容
      */
     public void create(MinuteView mv){
             em.getTransaction().begin();
@@ -186,9 +123,8 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
-     * @return バリデーションや更新処理中に発生したエラーのリスト
+     * 画面から入力された議事録の更新内容を元にデータを1件作成し、議事録テーブルを更新する
+     * @param mv 画面から入力された議事録の登録内容
      */
     public void update(MinuteView mv){
         //idを条件に登録済みの従業員情報を取得する
@@ -199,15 +135,15 @@ public class MinuteService extends ServiceBase{
         savedMin.setDecided(mv.getDecided());
         savedMin.setPending(mv.getPending());
 
-            em.getTransaction().begin();
-            Minute m = findOneInternal(mv.getId());
-            MinuteConverter.copyViewToModel(m, savedMin);
-            em.getTransaction().commit();
+        em.getTransaction().begin();
+        Minute m = findOneInternal(mv.getId());
+        MinuteConverter.copyViewToModel(m, savedMin);
+        em.getTransaction().commit();
     }
 
     /**
-     * 画面から入力された募集の更新内容を元にデータを1件作成し、募集テーブルを更新する
-     * @param wv 画面から入力された募集の登録内容
+     * 画面から入力された議題の更新内容を元にデータを1件作成し、議題テーブルを更新する
+     * @param av 画面から入力された議題の登録内容
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public void updateAgenda(AgendaView av){
@@ -224,8 +160,8 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * 募集データを削除する
-     * @param w DBに登録された募集の登録内容
+     * 議事録データを削除する
+     * @param m DBに登録された議事録の登録内容
      */
     public void destroy(Minute m) {
         em.getTransaction().begin();
@@ -236,7 +172,7 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Minuteのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -247,7 +183,7 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件に従業員データを1件取得し、Employeeのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -258,7 +194,7 @@ public class MinuteService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件に会議データを1件取得し、Meetingのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */

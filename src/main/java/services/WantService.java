@@ -19,7 +19,7 @@ import models.validators.WantValidator;
 
 
 /**
- * 従業員テーブルの操作に関わる処理を行うクラス
+ * 募集テーブルの操作に関わる処理を行うクラス
  */
 public class WantService extends ServiceBase{
     /**
@@ -39,6 +39,7 @@ public class WantService extends ServiceBase{
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、WantViewのリストで返却する
      * @param page ページ数
+     * @param m 会議インスタンス
      * @return 表示するデータのリスト
      */
     public List<WantView> getPerPageByMeeting(int page, Meeting m){
@@ -53,7 +54,6 @@ public class WantService extends ServiceBase{
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、MeetingViewのリストで返却する
-     * @param page ページ数
      * @return 表示するデータのリスト
      */
     public List<MeetingView> getMeeting(){
@@ -65,7 +65,7 @@ public class WantService extends ServiceBase{
 
     /**
      * 指定されたページ数の一覧画面に表示するデータを取得し、IdeaViewのリストで返却する
-     * @param page ページ数
+     * @param w 募集インスタンス
      * @return 表示するデータのリスト
      */
     public List<IdeaView> getIdeas(Want w){
@@ -75,8 +75,6 @@ public class WantService extends ServiceBase{
 
         return IdeaConverter.toViewList(ideas);
     }
-
-    /**
 
     /**
      * idを条件に取得したデータをWantViewのインスタンスで返却する
@@ -135,7 +133,7 @@ public class WantService extends ServiceBase{
      * @return バリデーションや更新処理中に発生したエラーのリスト
      */
     public List<String> update(WantView wv){
-        //idを条件に登録済みの従業員情報を取得する
+        //idを条件に登録済みの募集情報を取得する
         WantView savedWan = findOne(wv.getId());
 
         savedWan.setMeeting(wv.getMeeting());
@@ -173,7 +171,7 @@ public class WantService extends ServiceBase{
 
     /**
      * 募集データを削除する
-     * @param w DBに登録された募集の登録内容
+     * @param i DBに登録されたアイデアの登録内容
      */
     public void destroyIdea(Idea i) {
         em.getTransaction().begin();
@@ -184,7 +182,7 @@ public class WantService extends ServiceBase{
     }
 
     /**
-     * idを条件にデータを1件取得し、Projectのインスタンスで返却する
+     * idを条件にデータを1件取得し、Wantのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */
@@ -206,7 +204,7 @@ public class WantService extends ServiceBase{
     }
 
     /**
-     * idを条件にチームデータを1件取得し、Teamのインスタンスで返却する
+     * idを条件にチームデータを1件取得し、Meetingのインスタンスで返却する
      * @param id
      * @return 取得データのインスタンス
      */

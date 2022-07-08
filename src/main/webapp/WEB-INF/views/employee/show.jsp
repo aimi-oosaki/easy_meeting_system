@@ -41,7 +41,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ★追記 -->
+
         <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
         <!-- 管理者の場合のみ従業員情報編集を表示 -->
         </c:if>

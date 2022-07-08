@@ -51,7 +51,7 @@ public class Todo {
     private Integer id;
 
     /**
-     * 担当者
+     * だれが
      */
     @ManyToOne
     @JoinColumn(name = JpaConst.TOD_COL_EMP, nullable = false)
@@ -65,20 +65,20 @@ public class Todo {
     private Meeting meeting;
 
     /**
-     * どのチームの募集か
+     * どのチームのTODOか
      */
     @ManyToOne
     @JoinColumn(name = JpaConst.TOD_COL_TEA, nullable = false)
     private Team team;
 
     /**
-     * やること
+     * なにを
      */
     @Column(name = JpaConst.TOD_COL_WHAT, length = 200, nullable = false)
     private String what;
 
     /**
-     * いつまで
+     * いつまでに
      */
     @Column(name = JpaConst.TOD_COL_DEADLINE, nullable = false)
     private LocalDate deadline;

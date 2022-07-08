@@ -11,17 +11,15 @@ import constants.MessageConst;
 import services.TodoService;
 
 /**
- * 要望インスタンスに設定されている値のバリデーションを行うクラス
+ * TODOインスタンスに設定されている値のバリデーションを行うクラス
  *
  */
 
 public class TodoValidator {
     /**
-     * 要望インスタンスの各項目についてバリデーションを行う
+     * TODOインスタンスの各項目についてバリデーションを行う
      * @param service 呼び出し元Serviceクラスのインスタンス
-     * @param wv WantViewのインスタンス
-     * @param codeDuplicateCheckFlag 社員番号の重複チェックを実施するかどうか(実施する:true 実施しない:false)
-     * @param passwordCheckFlag パスワードの入力チェックを実施するかどうか(実施する:true 実施しない:false)
+     * @param tv TodoViewのインスタンス
      * @return エラーのリスト
      */
      public static List<String> validate(TodoService service, TodoView tv){
@@ -39,12 +37,13 @@ public class TodoValidator {
              errors.add(employeeError);
          }
 
-         //タイトルのチェック
+         //何をのチェック
          String whatError = validateWhat(tv.getWhat());
          if(!whatError.equals("")) {
              errors.add(whatError);
          }
 
+         //いつまでにのチェック
          String deadlineError = validateDeadline(tv.getDeadline());
          if(!deadlineError.equals("")){
              errors.add(deadlineError);
@@ -55,7 +54,7 @@ public class TodoValidator {
 
      /**
       * 誰がチームに入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param ev 担当者
+      * @param ev 誰が
       * @return エラーメッセージ
       */
      private static String validateEmployee(EmployeeView ev) {
@@ -81,7 +80,7 @@ public class TodoValidator {
 
      /**
       * タイトルに入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param what やること
+      * @param what 何を
       * @return エラーメッセージ
       */
      private static String validateWhat(String what) {
@@ -94,7 +93,7 @@ public class TodoValidator {
 
      /**
       * 日付に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param deadline 期限
+      * @param deadline いつまでに
       * @return エラーメッセージ
       */
      private static String validateDeadline(LocalDate deadline) {

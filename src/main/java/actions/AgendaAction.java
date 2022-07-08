@@ -20,7 +20,7 @@ import models.Meeting;
 import services.AgendaService;
 
 /**
- * 従業員に関わる処理を行うActionクラス
+ * 議題に関わる処理を行うActionクラス
  *
  */
 public class AgendaAction extends ActionBase{
@@ -54,8 +54,8 @@ public class AgendaAction extends ActionBase{
 
         List<AgendaView> agendas = service.getPerPage(page, m);
 
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集データ
-        putRequestScope(AttributeConst.AGENDAS, agendas); //取得した募集データ
+        putRequestScope(AttributeConst.MEETING, mv); //取得した会議データ
+        putRequestScope(AttributeConst.AGENDAS, agendas); //取得した議題データ
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
@@ -113,7 +113,7 @@ public class AgendaAction extends ActionBase{
                             null,
                             mv,
                             titles[i],
-                            "あ"
+                            "."
                             );
                   //募集情報登録
                   errors = service.create(av);
@@ -125,60 +125,57 @@ public class AgendaAction extends ActionBase{
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.AGENDAS, avs);//入力された日報情報
+                putRequestScope(AttributeConst.AGENDAS, avs);//入力された議題情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
                 forward(ForwardConst.FW_AGE_NEW);
 
             } else {
-                //登録中にエラーがなかった場合
-//                int page = getPage();
-//                Meeting m = MeetingConverter.toModel(mv);
-//                List<AgendaView> agendas = service.getPerPage(page, m);
-//                putRequestScope(AttributeConst.MEETING, mv); //取得した募集データ
-//                putRequestScope(AttributeConst.AGENDAS, agendas); //取得した募集データ
-//                putRequestScope(AttributeConst.PAGE, page); //ページ数
-//                putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
-
                 //セッションに登録完了のフラッシュメッセージを設定
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
 
                 //一覧画面にリダイレクト
                 redirect(ForwardConst.ACT_MEE, ForwardConst.CMD_INDEX);
             }
-
         }
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException{
 
-        //idを条件に募集データを取得する
+        //idを条件に議題データを取得する
         AgendaView av = service.findOne(toNumber(getRequestParam(AttributeConst.AGE_ID)));
 
-        //★追加 リクエストスコープから会議情報を取得する
+        //リクエストスコープから会議情報を取得する
         int page = getPage();
         MeetingView mv = service.findOneMeeting(toNumber(getRequestParam(AttributeConst.MET_ID)));
         Meeting m = MeetingConverter.toModel(mv);
 
-//        List<AgendaView> agendas = service.getPerPage(page, m);
-
         if (av == null) {
-            //該当の募集データが存在しない、または
-            //ログインしている従業員が募集の作成者でない場合はエラー画面を表示 ★後で追加する必要ある
+            //該当の議題データが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
             String _token = getTokenId();
             putRequestScope(AttributeConst.TOKEN, getTokenId());
-            putRequestScope(AttributeConst.AGENDA, av); //取得した募集データ;
-            putRequestScope(AttributeConst.MEETING, mv); //取得した募集データ
+            putRequestScope(AttributeConst.AGENDA, av); //取得した議題データ;
+            putRequestScope(AttributeConst.MEETING, mv); //取得した会議データ
         }
 
         //編集画面を表示
         forward(ForwardConst.FW_AGE_EDIT);
     }
 
+    /**
+     * 編集を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void update() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
@@ -200,10 +197,10 @@ public class AgendaAction extends ActionBase{
             //議題を保存する
             for(int i = 0; i < titles.length; i++) {
                 if(titles[i] != null) {
-                    //入力された募集内容を設定する
+                    //入力された議題内容を設定する
                     avs.get(i).setTitle(titles[i]);
 
-                    //募集データを更新する
+                    //議題データを更新する
                     errors = service.update(avs.get(i));
                 }
             }
@@ -212,7 +209,7 @@ public class AgendaAction extends ActionBase{
                 //更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.AGENDAS, avs); //入力された日報情報
+                putRequestScope(AttributeConst.AGENDAS, avs); //入力された議題情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示
@@ -230,6 +227,11 @@ public class AgendaAction extends ActionBase{
         }
     }
 
+    /**
+     * 話し合った内容の新規登録を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void updateSummary() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
@@ -263,7 +265,7 @@ public class AgendaAction extends ActionBase{
                 //更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.AGENDAS, avs); //入力された日報情報
+                putRequestScope(AttributeConst.AGENDAS, avs); //入力された議題情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示
@@ -289,7 +291,7 @@ public class AgendaAction extends ActionBase{
     public void destroy() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
-            //idを条件に募集データを取得する
+            //idを条件に議題データを取得する
             int agenda_id = toNumber(getRequestParam(AttributeConst.AGE_ID));
             AgendaView av = service.findOne(toNumber(getRequestParam(AttributeConst.AGE_ID)));
 
@@ -302,13 +304,12 @@ public class AgendaAction extends ActionBase{
                 return;
 
             } else {
-                    //募集をModel型へ変換
+                    //議題をModel型へ変換
                     Agenda a = AgendaConverter.toModel(av);
 
                     service.destroy(a);
                     //トップページにリダイレクト
                     redirect(ForwardConst.ACT_HOME, ForwardConst.CMD_SHOW);
-
             }
        }
     }

@@ -23,11 +23,13 @@ public class MeetingValidator {
      public static List<String> validate(MeetingService service, MeetingView mv){
          List<String> errors = new ArrayList<String>();
 
+         //会議名のチェック
          String nameError = validateName(mv.getName());
          if(!nameError.equals("")){
              errors.add(nameError);
          }
 
+         //日程のチェック
          String dateError = validateDate(mv.getDate());
          if(!dateError.equals("")) {
              errors.add(dateError);
@@ -39,7 +41,7 @@ public class MeetingValidator {
 
      /**
       * 名前に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param content 内容
+      * @param name 会議名
       * @return エラーメッセージ
       */
      private static String validateName(String name) {
@@ -52,7 +54,7 @@ public class MeetingValidator {
 
      /**
       * 日付に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param dueDate 日付
+      * @param date 日程
       * @return エラーメッセージ
       */
      private static String validateDate(LocalDate date) {

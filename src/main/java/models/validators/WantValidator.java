@@ -9,7 +9,7 @@ import constants.MessageConst;
 import services.WantService;
 
 /**
- * 要望インスタンスに設定されている値のバリデーションを行うクラス
+ * 募集インスタンスに設定されている値のバリデーションを行うクラス
  *
  */
 
@@ -18,8 +18,6 @@ public class WantValidator {
      * 要望インスタンスの各項目についてバリデーションを行う
      * @param wantService 呼び出し元Serviceクラスのインスタンス
      * @param wv WantViewのインスタンス
-     * @param codeDuplicateCheckFlag 社員番号の重複チェックを実施するかどうか(実施する:true 実施しない:false)
-     * @param passwordCheckFlag パスワードの入力チェックを実施するかどうか(実施する:true 実施しない:false)
      * @return エラーのリスト
      */
      public static List<String> validate(WantService wantService, WantView wv){
@@ -31,10 +29,13 @@ public class WantValidator {
              errors.add(titleError);
          }
 
+         //内容のチェック
          String contentError = validateContent(wv.getContent());
          if(!contentError.equals("")){
              errors.add(contentError);
          }
+
+         //募集期限のチェック
          String dueDateError = validateDueDate(wv.getDue_date());
          if(!dueDateError.equals("")) {
              errors.add(dueDateError);
@@ -71,7 +72,7 @@ public class WantValidator {
 
      /**
       * 日付に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param dueDate 日付
+      * @param dueDate 募集期限
       * @return エラーメッセージ
       */
      private static String validateDueDate(LocalDate dueDate) {

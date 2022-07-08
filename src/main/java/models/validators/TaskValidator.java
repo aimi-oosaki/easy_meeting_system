@@ -10,17 +10,15 @@ import constants.MessageConst;
 import services.TaskService;
 
 /**
- * 要望インスタンスに設定されている値のバリデーションを行うクラス
+ * プロジェクトインスタンスに設定されている値のバリデーションを行うクラス
  *
  */
 
 public class TaskValidator {
     /**
-     * 要望インスタンスの各項目についてバリデーションを行う
-     * @param wantService 呼び出し元Serviceクラスのインスタンス
-     * @param wv WantViewのインスタンス
-     * @param codeDuplicateCheckFlag 社員番号の重複チェックを実施するかどうか(実施する:true 実施しない:false)
-     * @param passwordCheckFlag パスワードの入力チェックを実施するかどうか(実施する:true 実施しない:false)
+     * プロジェクトインスタンスの各項目についてバリデーションを行う
+     * @param taskService 呼び出し元Serviceクラスのインスタンス
+     * @param tv TaskViewのインスタンス
      * @return エラーのリスト
      */
      public static List<String> validate(TaskService taskService, TaskView tv){
@@ -49,7 +47,7 @@ public class TaskValidator {
 
      /**
       * タイトルに入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param title タイトル
+      * @param title プロジェクト名
       * @return エラーメッセージ
       */
      private static String validateTitle(String title) {
@@ -62,7 +60,7 @@ public class TaskValidator {
 
      /**
       * 担当者に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param content 内容
+      * @param employee 担当者
       * @return エラーメッセージ
       */
      private static String validateEmployee(EmployeeView employee) {
@@ -74,8 +72,8 @@ public class TaskValidator {
      }
 
      /**
-      * 日付に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-      * @param dueDate 日付
+      * 期日に入力値があるかをチェックし、入力値がなければエラーメッセージを返却
+      * @param dueDate 期日
       * @return エラーメッセージ
       */
      private static String validateDueDate(LocalDate dueDate) {

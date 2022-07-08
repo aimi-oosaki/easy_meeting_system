@@ -12,8 +12,8 @@ import models.Idea;
 public class IdeaConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param iv IdeaViewのインスタンス
+     * @return Ideaのインスタンス
      */
     public static Idea toModel(IdeaView iv) {
         return new Idea(
@@ -25,8 +25,8 @@ public class IdeaConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param i Ideaのインスタンス
+     * @return IdeaViewのインスタンス
      */
     public static IdeaView toView(Idea i) {
         if(i == null) {
@@ -56,8 +56,8 @@ public class IdeaConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param i DTOモデル(コピー先)
+     * @param iv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Idea i, IdeaView iv) {
         i.setId(iv.getId());

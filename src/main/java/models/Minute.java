@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 募集データのDTOモデル
+ * 議事録データのDTOモデル
  *
  */
 @Table(name = JpaConst.TABLE_MIN)

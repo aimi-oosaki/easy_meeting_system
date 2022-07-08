@@ -16,7 +16,7 @@ import models.Team;
 import services.TeamService;
 
 /**
- * 従業員に関わる処理を行うActionクラス
+ * チームに関わる処理を行うActionクラス
  *
  */
 public class TeamAction extends ActionBase{
@@ -41,15 +41,15 @@ public class TeamAction extends ActionBase{
      * @throws IOException
      */
     public void index() throws ServletException, IOException{
-        //セッションからログイン中の従業員情報を取得
+        //セッションからログイン中の従業員の会社情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         Integer company_id = ev.getCompany_id();
 
-        //指定されたページ数の一覧画面に表示するデータを取得
+        //指定されたページ数の一覧画面に表示するチームデータを取得
         int page = getPage();
         List<TeamView> teams = service.getPerPage(page, company_id);
 
-        putRequestScope(AttributeConst.TEAMS, teams); //取得した募集データ
+        putRequestScope(AttributeConst.TEAMS, teams); //取得したチームデータ
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
@@ -71,7 +71,7 @@ public class TeamAction extends ActionBase{
      */
     public void entryNew() throws ServletException, IOException {
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-        putRequestScope(AttributeConst.TEAM, new TeamView()); //空の募集インスタンス
+        putRequestScope(AttributeConst.TEAM, new TeamView()); //空のチームインスタンス
 
         //新規登録画面を表示
         forward(ForwardConst.FW_TEA_NEW);
@@ -102,7 +102,7 @@ public class TeamAction extends ActionBase{
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.TEAM, tv);//入力された日報情報
+                putRequestScope(AttributeConst.TEAM, tv);//入力されたチーム情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
@@ -120,22 +120,23 @@ public class TeamAction extends ActionBase{
         }
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException{
 
-        //idを条件に募集データを取得する
+        //idを条件にチームデータを取得する
         TeamView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TEA_ID)));
 
         //セッションからログイン中の従業員情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-
         if (tv == null) {
-            //該当の募集データが存在しない、または
-            //ログインしている従業員が募集の作成者でない場合はエラー画面を表示 ★後で追加する必要ある
+            //該当のチームデータが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
-
         } else {
-
             putRequestScope(AttributeConst.TOKEN, getTokenId());
             putRequestScope(AttributeConst.TEAM, tv);
         }
@@ -144,16 +145,21 @@ public class TeamAction extends ActionBase{
         forward(ForwardConst.FW_TEA_EDIT);
     }
 
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void update() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
             //idを条件にチームデータを取得する
             TeamView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TEA_ID)));
 
-            //入力された募集内容を設定する
+            //入力されたチーム内容を設定する
             tv.setName(getRequestParam(AttributeConst.TEA_NAME));
 
-            //募集データを更新する
+            //チームデータを更新する
             List<String> errors = service.update(tv);
 
 
@@ -161,7 +167,7 @@ public class TeamAction extends ActionBase{
                 //更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.TEAM, tv); //入力された日報情報
+                putRequestScope(AttributeConst.TEAM, tv); //入力されたチーム情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示
@@ -187,7 +193,7 @@ public class TeamAction extends ActionBase{
     public void destroy() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
-            //idを条件に募集データを取得する
+            //idを条件にチームデータを取得する
             TeamView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TEA_ID)));
 
             //セッションからログイン中の従業員情報を取得

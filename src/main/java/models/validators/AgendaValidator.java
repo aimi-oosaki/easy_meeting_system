@@ -23,6 +23,7 @@ public class AgendaValidator {
      public static List<String> validate(AgendaService service, AgendaView av){
          List<String> errors = new ArrayList<String>();
 
+         //会議のチェック
          String meetingError = validateMeeting(av.getMeeting());
          if(!meetingError.equals("")) {
              errors.add(meetingError);

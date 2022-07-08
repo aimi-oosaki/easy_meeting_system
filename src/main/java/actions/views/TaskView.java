@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 募集情報について画面の入力値・出力値を扱うViewモデル
+ * プロジェクト情報について画面の入力値・出力値を扱うViewモデル
  *
  */
 @Getter

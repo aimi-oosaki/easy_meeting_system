@@ -23,7 +23,7 @@ import models.Todo;
 import services.TodoService;
 
 /**
- * 従業員に関わる処理を行うActionクラス
+ * TODOに関わる処理を行うActionクラス
  *
  */
 public class TodoAction extends ActionBase{
@@ -48,7 +48,7 @@ public class TodoAction extends ActionBase{
      * @throws IOException
      */
     public void index() throws ServletException, IOException{
-        //セッションからログイン中の従業員情報を取得
+        //セッションからログイン中の従業員のチーム情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         Team t = service.findOneTeam(ev.getTeam().getId());
 
@@ -56,7 +56,7 @@ public class TodoAction extends ActionBase{
         int page = getPage();
         List<TodoView> todos = service.getTodos(t);
 
-        putRequestScope(AttributeConst.TODOS, todos); //取得した募集データ
+        putRequestScope(AttributeConst.TODOS, todos); //取得したTODOデータ
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
@@ -77,17 +77,18 @@ public class TodoAction extends ActionBase{
      * @throws IOException
      */
     public void entryNew() throws ServletException, IOException {
-      //idを条件に会議データを取得する
+        //idを条件に会議データを取得する
         MeetingView mv = service.findOneMeeting(toNumber(getRequestParam(AttributeConst.MET_ID)));
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
+
+        putRequestScope(AttributeConst.MEETING, mv); //取得した会議情報
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-        putRequestScope(AttributeConst.TODO, new TodoView()); //空の募集インスタンス
+        putRequestScope(AttributeConst.TODO, new TodoView()); //空のTODOインスタンス
 
         //チームメンバーを取得する
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         Team t = service.findOneTeam(ev.getTeam().getId());
         List<EmployeeView> employees = service.getEmployee(t);
-        putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した募集データ
+        putRequestScope(AttributeConst.EMPLOYEES, employees); //取得した従業員データ
 
 
         //新規登録画面を表示
@@ -104,7 +105,7 @@ public class TodoAction extends ActionBase{
             //idを条件に会議データを取得する
             MeetingView mv = service.findOneMeeting(toNumber(getRequestParam(AttributeConst.MET_ID)));
 
-            //リクエストスコープからタイトルを取得
+            //リクエストスコープからTODO情報を取得
             String[] whos = request.getParameterValues("todo_employee[]");
             String[] whats = request.getParameterValues("todo_what[]");
             String[] deadlines = request.getParameterValues("todo_deadline[]");
@@ -117,7 +118,7 @@ public class TodoAction extends ActionBase{
             //エラー用リスト
             List<String> errors = new ArrayList<String>();
 
-            //リクエストスコープから議題データを取得
+            //リクエストスコープからTODOデータを取得
             String[] ids = getRequestParams(AttributeConst.TODO_ID);
 
             List<TodoView> todos = new ArrayList<TodoView>();
@@ -140,7 +141,7 @@ public class TodoAction extends ActionBase{
             if (errors.size() > 0) {
                 //登録中にエラーがあった場合
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.TODOS, todos);//入力された日報情報
+                putRequestScope(AttributeConst.TODOS, todos);//入力されたTODO情報
                 putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
                 //新規登録画面を再表示
@@ -158,9 +159,14 @@ public class TodoAction extends ActionBase{
         }
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException{
 
-        //チームメンバーを取得する
+        //ログイン中の従業員のチームメンバーを取得する
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         Team t = service.findOneTeam(ev.getTeam().getId());
         List<EmployeeView> employees = service.getEmployee(t);
@@ -172,8 +178,7 @@ public class TodoAction extends ActionBase{
         TodoView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TODO_ID)));
 
         if (tv == null) {
-            //該当の募集データが存在しない、または
-            //ログインしている従業員が募集の作成者でない場合はエラー画面を表示 ★後で追加する必要ある
+            //該当のTODOデータが存在しない場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
@@ -186,6 +191,11 @@ public class TodoAction extends ActionBase{
         forward(ForwardConst.FW_TOD_EDIT);
     }
 
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void update() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
@@ -197,20 +207,20 @@ public class TodoAction extends ActionBase{
             String emp_id = getRequestParam(AttributeConst.TODO_EMP);
             EmployeeView ev = service.findOneEmployee(toNumber(emp_id));
 
-            //議題を保存する
+            //TODOを保存する
             tv.setEmployee(ev);
             tv.setWhat(getRequestParam(AttributeConst.TODO_WHAT));
             tv.setDeadline(toLocalDate(getRequestParam(AttributeConst.TODO_DEADLINE)));
             tv.setStatus(toNumber(getRequestParam(AttributeConst.TODO_STATUS)));
             tv.setConsequence(getRequestParam(AttributeConst.TODO_CON));
 
-            //募集データを更新する
+            //TODOデータを更新する
             List<String> errors = service.update(tv);
 
             if (errors.size() > 0) {
                 //更新中にエラーが発生した場合
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.TODO, tv); //入力された日報情報
+                putRequestScope(AttributeConst.TODO, tv); //入力されたTODO情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示
@@ -237,7 +247,7 @@ public class TodoAction extends ActionBase{
     public void destroy() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
-            //idを条件に募集データを取得する
+            //idを条件にTODOデータを取得する
             TodoView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TODO_ID)));
 
             //セッションからログイン中の従業員情報を取得
@@ -249,7 +259,7 @@ public class TodoAction extends ActionBase{
                 return;
 
             } else {
-                    //募集をModel型へ変換
+                    //TODOをModel型へ変換
                     Todo t = TodoConverter.toModel(tv);
 
                     service.destroy(t);
@@ -266,21 +276,16 @@ public class TodoAction extends ActionBase{
      * @throws IOException
      */
     public void show() throws ServletException, IOException {
-        //idを条件に募集データを取得する
+        //idを条件にTODOデータを取得する
         TodoView tv = service.findOne(toNumber(getRequestParam(AttributeConst.TODO_ID)));
 
-        //募集idを条件に、回答を取得する
-//        List<IdeaView> ideas = service.getIdeas(ProjectConverter.toModel(wv));
-
         if (tv == null) {
-
             //データが取得できなかった場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
-
-        putRequestScope(AttributeConst.TODO, tv); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.TODO, tv); //取得したTODO情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
         //詳細画面を表示
         forward(ForwardConst.FW_TOD_SHOW);

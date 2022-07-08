@@ -12,8 +12,8 @@ import models.Meeting;
 public class MeetingConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param mv MeetingViewのインスタンス
+     * @return Meetingのインスタンス
      */
     public static Meeting toModel(MeetingView mv) {
         return new Meeting(
@@ -26,8 +26,8 @@ public class MeetingConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param m Meetingのインスタンス
+     * @return MeetingViewのインスタンス
      */
     public static MeetingView toView(Meeting m) {
         if(m == null) {
@@ -58,8 +58,8 @@ public class MeetingConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param m DTOモデル(コピー先)
+     * @param mv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Meeting m, MeetingView mv) {
         m.setId(mv.getId());

@@ -51,7 +51,7 @@ public class MeetingAction extends ActionBase{
         int page = getPage();
         List<MeetingView> meetings = service.getPerPage(page);
 
-        putRequestScope(AttributeConst.MEETINGS, meetings); //取得した募集データ
+        putRequestScope(AttributeConst.MEETINGS, meetings); //取得した会議データ
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
@@ -72,7 +72,7 @@ public class MeetingAction extends ActionBase{
      * @throws IOException
      */
     public void entryNew() throws ServletException, IOException {
-        //セッションからログイン中の従業員情報を取得
+        //セッションからログイン中の従業員情報の会議情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         Integer company_id = ev.getCompany_id();
 
@@ -80,7 +80,7 @@ public class MeetingAction extends ActionBase{
         List<TeamView> teams = service.getTeam(company_id);
 
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-        putRequestScope(AttributeConst.MEETING, new MeetingView()); //空の募集インスタンス
+        putRequestScope(AttributeConst.MEETING, new MeetingView()); //空の会議インスタンス
         putRequestScope(AttributeConst.TEAMS, teams); //全チーム
 
         //新規登録画面を表示
@@ -105,7 +105,7 @@ public class MeetingAction extends ActionBase{
                     toLocalDate(getRequestParam(AttributeConst.MET_DATE)),
                     0);
 
-            //募集情報登録
+            //会議情報登録
             List<String> errors = service.create(mv);
 
             if (errors.size() > 0) {
@@ -130,11 +130,16 @@ public class MeetingAction extends ActionBase{
         }
     }
 
+    /**
+     * 編集画面を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
     public void edit() throws ServletException, IOException{
         //idを条件に会議データを取得する
         MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
 
-      //セッションからログイン中の従業員情報を取得
+      //セッションからログイン中の従業員情報の会議情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
         Integer company_id = ev.getCompany_id();
 
@@ -155,22 +160,27 @@ public class MeetingAction extends ActionBase{
         forward(ForwardConst.FW_MET_EDIT);
     }
 
+    /**
+     * 更新を行う
+     * @throws ServletException
+     * @throws IOException
+     */
     public void update() throws ServletException, IOException {
         //CSRF対策 tokenのチェック
         if(checkToken()) {
-            //idを条件に募集データを取得する
+            //idを条件に会議データを取得する
             MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
 
             //リクエストスコープからチーム情報を取得
             int team_id = toNumber(getRequestParam(AttributeConst.MET_TEAM));
             TeamView tv = service.findOneTeam(team_id);
 
-            //入力された募集内容を設定する
+            //入力された会議内容を設定する
             mv.setTeam(tv);
             mv.setName(getRequestParam(AttributeConst.MET_NAME));
             mv.setDate(toLocalDate(getRequestParam(AttributeConst.MET_DATE)));
 
-            //募集データを更新する
+            //会議データを更新する
             List<String> errors = service.update(mv);
 
 
@@ -178,7 +188,7 @@ public class MeetingAction extends ActionBase{
                 //更新中にエラーが発生した場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.MEETING, mv); //入力された日報情報
+                putRequestScope(AttributeConst.MEETING, mv); //入力された会議情報
                 putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
 
                 //編集画面を再表示
@@ -213,25 +223,18 @@ public class MeetingAction extends ActionBase{
             //会議に該当するTODOデータを取得する
             List<TodoView> tv = service.getTodos(MeetingConverter.toModel(mv));
 
-//            if(tv != null) {
-//                //データが取得できた場合のみTODOを削除
-//                service.destroyTodo(tv);
-//
-//            }
-
             if (mv == null && ev == null) {
                 //データが取得できなかった場合はエラー画面を表示
                 forward(ForwardConst.FW_ERR_UNKNOWN);
                 return;
 
             } else {
-                    //募集をModel型へ変換
+                    //会議をModel型へ変換
                     Meeting m = MeetingConverter.toModel(mv);
 
                     service.destroy(m.getId());
                     //トップページにリダイレクト
                     redirect(ForwardConst.ACT_HOME, ForwardConst.CMD_SHOW);
-
             }
        }
     }
@@ -242,22 +245,21 @@ public class MeetingAction extends ActionBase{
      * @throws IOException
      */
     public void prob_1() throws ServletException, IOException{
-        //idを条件に会議データを取得する
+        //idを条件に取得した会議データから議題を取得する
         MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
         List<AgendaView> agendas = service.getAgendas(MeetingConverter.toModel(mv));
 
         if (mv == null) {
-
             //データが取得できなかった場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
 
         putRequestScope(AttributeConst.AGENDAS, agendas); //取得した議題情報
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
+        putRequestScope(AttributeConst.MEETING, mv); //取得した会議情報
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
-        //詳細画面を表示
+        //問題解決会議画面１を表示
         forward(ForwardConst.FW_MET_PROB1);
 
     }
@@ -268,7 +270,7 @@ public class MeetingAction extends ActionBase{
      * @throws IOException
      */
     public void prob_2() throws ServletException, IOException{
-        //idを条件に会議データを取得する
+        //idを条件に取得した会議データから議題を取得する
         MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
         List<AgendaView> agendas = service.getAgendas(MeetingConverter.toModel(mv));
 
@@ -280,10 +282,10 @@ public class MeetingAction extends ActionBase{
         }
 
         putRequestScope(AttributeConst.AGENDAS, agendas); //取得した議題情報
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.MEETING, mv); //取得した会議情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
-        //詳細画面を表示
+        //問題解決会議画面２を表示
         forward(ForwardConst.FW_MET_PROB2);
 
     }
@@ -294,7 +296,7 @@ public class MeetingAction extends ActionBase{
      * @throws IOException
      */
     public void prob_3() throws ServletException, IOException{
-        //idを条件に会議データを取得する
+        //idを条件に取得した会議データから議題を取得する
         MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
         List<AgendaView> agendas = service.getAgendas(MeetingConverter.toModel(mv));
 
@@ -306,10 +308,10 @@ public class MeetingAction extends ActionBase{
         }
 
         putRequestScope(AttributeConst.AGENDAS, agendas); //取得した議題情報
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.MEETING, mv); //取得した会議情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
-        //詳細画面を表示
+        //問題解決会議画面３を表示
         forward(ForwardConst.FW_MET_PROB3);
 
     }
@@ -324,22 +326,21 @@ public class MeetingAction extends ActionBase{
         MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
 
         if (mv == null) {
-
             //データが取得できなかった場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
 
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.MEETING, mv); //取得した会議情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
-        //詳細画面を表示
+        //会議選択画面を表示
         forward(ForwardConst.FW_MET_SELECT);
 
     }
 
     /**
-     * 付箋画面を表示する
+     * アイデア会議画面を表示する
      * @throws ServletException
      * @throws IOException
      */
@@ -348,16 +349,15 @@ public class MeetingAction extends ActionBase{
         MeetingView mv = service.findOne(toNumber(getRequestParam(AttributeConst.MET_ID)));
 
         if (mv == null) {
-
             //データが取得できなかった場合はエラー画面を表示
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
 
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
-        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
+        putRequestScope(AttributeConst.MEETING, mv); //取得し会議情報
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
-        //詳細画面を表示
+        //アイデア会議画面を表示
         forward(ForwardConst.FW_STICKY_NOTE);
 
     }
@@ -390,10 +390,10 @@ public class MeetingAction extends ActionBase{
             return;
         }
 
-        putRequestScope(AttributeConst.MEETING, mv); //取得した募集情報
+        putRequestScope(AttributeConst.MEETING, mv); //取得し会議情報
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン★追記
 
-        //詳細画面を表示
+        //進捗会議画面を表示
         forward(ForwardConst.FW_MET_PROGRESS);
 
     }

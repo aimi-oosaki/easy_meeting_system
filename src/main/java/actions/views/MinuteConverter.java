@@ -6,14 +6,14 @@ import java.util.List;
 import models.Minute;
 
 /**
- * 募集データのDTOモデル⇔Viewモデルの変換を行うクラス
+ * 議事録データのDTOモデル⇔Viewモデルの変換を行うクラス
  *
  */
 public class MinuteConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param mv MinuteViewのインスタンス
+     * @return Minuteのインスタンス
      */
     public static Minute toModel(MinuteView mv) {
         return new Minute(
@@ -27,8 +27,8 @@ public class MinuteConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param m Minuteのインスタンス
+     * @return MinuteViewのインスタンス
      */
     public static MinuteView toView(Minute m) {
         if(m == null) {
@@ -60,8 +60,8 @@ public class MinuteConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param m DTOモデル(コピー先)
+     * @param mv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Minute m, MinuteView mv) {
         m.setId(mv.getId());

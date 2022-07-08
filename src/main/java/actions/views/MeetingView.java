@@ -21,7 +21,7 @@ public class MeetingView {
     private Integer id;
 
     /**
-     * アイデア募集中の会議
+     * 会議を開催するチーム
      */
     private TeamView team;
 

@@ -47,9 +47,15 @@ public class Team {
     @Column(name = JpaConst.TEA_COL_COM, nullable = false)
     private Integer company_id;
 
+    /**
+     * チーム名
+     */
     @Column(name = JpaConst.TEA_COL_NAME, nullable = false)
     private String name;
 
+    /**
+     * 削除フラグ
+     */
     @Column(name = JpaConst.MEE_COL_DELETE_FLAG, nullable = false)
     private Integer delete_flag;
 }

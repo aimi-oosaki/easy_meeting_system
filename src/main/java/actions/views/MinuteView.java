@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 募集情報について画面の入力値・出力値を扱うViewモデル
+ * 議事録情報について画面の入力値・出力値を扱うViewモデル
  *
  */
 @Getter
@@ -20,7 +20,7 @@ public class MinuteView {
     private Integer id;
 
     /**
-     * アイデア募集中の会議
+     * 議事録の会議
      */
     private MeetingView meeting;
 
@@ -40,7 +40,7 @@ public class MinuteView {
     private String decided;
 
     /**
-     * 保留
+     * 保留事項
      */
     private String pending;
 }

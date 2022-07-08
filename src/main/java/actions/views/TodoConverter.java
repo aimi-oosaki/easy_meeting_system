@@ -6,14 +6,14 @@ import java.util.List;
 import models.Todo;
 
 /**
- * 募集データのDTOモデル⇔Viewモデルの変換を行うクラス
+ * TODOデータのDTOモデル⇔Viewモデルの変換を行うクラス
  *
  */
 public class TodoConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param tv TodoViewのインスタンス
+     * @return Todoのインスタンス
      */
     public static Todo toModel(TodoView tv) {
         return new Todo(
@@ -29,8 +29,8 @@ public class TodoConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param t Todoのインスタンス
+     * @return TodoViewのインスタンス
      */
     public static TodoView toView(Todo t) {
         if(t == null) {
@@ -64,8 +64,8 @@ public class TodoConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param t DTOモデル(コピー先)
+     * @param tv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Todo t, TodoView tv) {
         t.setId(tv.getId());

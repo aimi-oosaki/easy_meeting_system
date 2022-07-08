@@ -6,14 +6,14 @@ import java.util.List;
 import models.Task;
 
 /**
- * 募集データのDTOモデル⇔Viewモデルの変換を行うクラス
+ * プロジェクトデータのDTOモデル⇔Viewモデルの変換を行うクラス
  *
  */
 public class TaskConverter {
     /**
      * ViewモデルのインスタンスからDTOモデルのインスタンスを作成する
-     * @param rv ReportViewのインスタンス
-     * @return Reportのインスタンス
+     * @param tv TaskViewのインスタンス
+     * @return Taskのインスタンス
      */
     public static Task toModel(TaskView tv) {
         return new Task(
@@ -30,8 +30,8 @@ public class TaskConverter {
 
     /**
      * DTOモデルのインスタンスからViewモデルのインスタンスを作成する
-     * @param r Reportのインスタンス
-     * @return ReportViewのインスタンス
+     * @param t Taskのインスタンス
+     * @return TaskViewのインスタンス
      */
     public static TaskView toView(Task t) {
         if(t == null) {
@@ -66,8 +66,8 @@ public class TaskConverter {
 
     /**
      * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
-     * @param r DTOモデル(コピー先)
-     * @param rv Viewモデル(コピー元)
+     * @param t DTOモデル(コピー先)
+     * @param tv Viewモデル(コピー元)
      */
     public static void copyViewToModel(Task t, TaskView tv) {
         t.setId(tv.getId());

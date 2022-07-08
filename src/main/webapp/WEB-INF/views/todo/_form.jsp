@@ -57,40 +57,9 @@
     </tbody>
 </table>
 
+<input type="hidden" name="${AttributeConst.MET_ID.getValue()}" value="${meeting.id}" />
+<input type="hidden" name="${AttributeConst.TODO_ID.getValue()}" value="${todo.id}" />
+<input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 
-<%--         <label for="${AttributeConst.TODO_EMP.getValue()}">だれが</label><br /> --%>
-<%--         <select name="${AttributeConst.TODO_EMP.getValue()}"> --%>
-<!--           <option selected>担当者を選んでください</option> -->
-<%--           <c:forEach var="employee" items="${employees}"> --%>
-<%--             <option value="${employee.id}">${employee.name}</option> --%>
-<%--           </c:forEach> --%>
-<!--         </select> -->
-<!--         <br /><br /> -->
-
-<%--         <fmt:parseDate value="${todo.deadline}" pattern="yyyy-MM-dd" var="dueDay" type="date" /> --%>
-<%--         <label for="${AttributeConst.TODO_DEADLINE.getValue()}">いつまでに</label><br /> --%>
-<%--         <input type="date" name="${AttributeConst.TODO_DEADLINE.getValue()}" value="<fmt:formatDate value='${deadline}' pattern='yyyy-MM-dd' />" /> --%>
-<!--         <br /><br /> -->
-
-
-<%--         <label for="${AttributeConst.TODO_WHAT.getValue()}">なにを</label><br /> --%>
-<%--         <input type="text" name="${AttributeConst.TODO_WHAT.getValue()}" value="${todo.what}" /> --%>
-<!--         <br /><br /> -->
-
-<%--         <label for="${AttributeConst.TODO_STATUS.getValue()}"></label>進捗<br /> --%>
-<%--         <select name="${AttributeConst.TODO_STATUS.getValue()}"> --%>
-<%--             <option value="${AttributeConst.TODO_STATUS_FALSE.getIntegerValue()}"<c:if test="${todo.status == AttributeConst.TODO_STATUS_FALSE.getIntegerValue()}"> selected</c:if>>未</option> --%>
-<%--             <option value="${AttributeConst.TODO_STATUS_TRUE.getIntegerValue()}"<c:if test="${todo.status == AttributeConst.TODO_STATUS_TRUE.getIntegerValue()}"> selected</c:if>>完了</option> --%>
-<!--         </select> -->
-<!--         <br /><br /> -->
-
-<%--         <label for="${AttributeConst.TODO_CON.getValue()}">結果</label><br /> --%>
-<%--         <input type="text" name="${AttributeConst.TODO_CON.getValue()}" value="${todo.consequence}" /> --%>
-<!--         <br /><br /> -->
-
-        <input type="hidden" name="${AttributeConst.MET_ID.getValue()}" value="${meeting.id}" />
-        <input type="hidden" name="${AttributeConst.TODO_ID.getValue()}" value="${todo.id}" />
-        <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-
-    <br />
-    <button type="submit"  class="submit-btn">更新</button>
+<br />
+<button type="submit"  class="submit-btn">更新</button>

@@ -53,10 +53,11 @@ public class EmployeeValidator {
     }
 
     /**
-     * 社員番号の入力チェックを行い、エラーメッセージを返却
+     * 社員番号・会社IDの入力チェックを行い、エラーメッセージを返却
      * @param service EmployeeServiceのインスタンス
      * @param code 社員番号
      * @param codeDuplicateCheckFlag 社員番号の重複チェックを実施するかどうか(実施する:true 実施しない:false)
+     * @param company_id 会社ID
      * @return エラーメッセージ
      */
     private static String validateCode(EmployeeService service, String code, Boolean codeDuplicateCheckFlag, Integer company_id) {
@@ -99,6 +100,7 @@ public class EmployeeValidator {
     /**
      * @param service EmployeeServiceのインスタンス
      * @param code 社員番号
+     * @param company_id 会社ID
      * @return 従業員テーブルに登録されている同一社員番号のデータの件数
      */
     private static long isDuplicateEmployee(EmployeeService service, String code, Integer company_id) {
@@ -109,7 +111,7 @@ public class EmployeeValidator {
 
     /**
      * 会社CDに入力値があるかをチェックし、入力値がなければエラーメッセージを返却
-     * @param company_id 氏名
+     * @param company_id 会社ID
      * @return エラーメッセージ
      */
     private static String validateCompany(Integer company_id) {
